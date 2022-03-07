@@ -40,8 +40,8 @@ jobs:
       - name: Generate TypeScript
         run: php artisan config:cache && php artisan typescript:generate
 
-      - name: Install typedoc
-        run: npm i typedoc
+      - name: Install deps
+        run: npm i
 
       - name: Generate typedoc
         run: npm run doc
