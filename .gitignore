@@ -30,7 +30,7 @@ storage/imgcache
 escolasoft/**/vendor
 .DS_Store
 
-bootstrap/cache/**/*
+bootstrap/cache/**/*.php
 /packages
 
 
