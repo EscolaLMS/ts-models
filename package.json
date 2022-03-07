@@ -4,21 +4,22 @@
   "private": false,
   "dependencies": {},
   "scripts": {
-    "test": "tsc models.d.ts"
+    "test": "tsc models.d.ts",
+    "doc": "typedoc models.d.ts --out build"
   },
   "files": [
     "models.d.ts"
   ],
   "main": "./models.d.ts",
   "types": "./models.d.ts",
-  "description": "Frontend TS/JS connection to API.",
-  "directories": {
-    "lib": "lib"
+  "description": "Frontend TypeScript model definitions",
+  "devDependencies": {
+    "typedoc": "^0.22.13",
+    "typescript": "^4.6.2"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EscolaLMS/sdk.git"
+    "url": "git+https://github.com/EscolaLMS/ts-models.git"
   },
   "keywords": [
     "escola",
@@ -30,7 +31,7 @@
   "author": "Mateusz Wojczal <mateusz@wojczal.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EscolaLMS/sdk/issues"
+    "url": "https://github.com/EscolaLMS/ts-models/issues"
   },
-  "homepage": "https://github.com/EscolaLMS/sdk#readme"
+  "homepage": "https://github.com/EscolaLMS/ts-models#readme"
 }
