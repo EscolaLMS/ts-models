@@ -1,0 +1,36 @@
+{
+  "name": "@escolalms/ts-models",
+  "version": "0.0.1",
+  "private": false,
+  "dependencies": {},
+  "scripts": {
+    "test": "tsc models.d.ts"
+  },
+  "files": [
+    "models.d.ts"
+  ],
+  "main": "./models.d.ts",
+  "types": "./models.d.ts",
+  "description": "Frontend TS/JS connection to API.",
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EscolaLMS/sdk.git"
+  },
+  "keywords": [
+    "escola",
+    "lms",
+    "lms",
+    "rest",
+    "api"
+  ],
+  "author": "Mateusz Wojczal <mateusz@wojczal.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EscolaLMS/sdk/issues"
+  },
+  "homepage": "https://github.com/EscolaLMS/sdk#readme"
+}

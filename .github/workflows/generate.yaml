@@ -1,0 +1,53 @@
+on: push
+name: Generate
+jobs:
+  phpunit-mysql:
+    runs-on: ubuntu-latest
+    container:
+      image: escolalms/php:8-work
+
+    services:
+      mysql:
+        image: mariadb
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: test
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Copy environment configuration files
+        run: |
+          cp .env.ci.mysql .env
+
+      - name: Install composer dependencies
+        run: |
+          apt-get -y install git
+          composer install --no-scripts
+
+      - name: Prepare Laravel Application
+        run: |
+          php artisan key:generate
+          php artisan migrate:fresh
+          php artisan passport:keys --force
+          php artisan passport:client --personal --no-interaction
+
+      - name: Generate TypeScript
+        run: php artisan config:cache && php artisan typescript:generate
+
+      - name: Install typedoc
+        run: yarn add typedoc
+
+      - name: Generate typedoc
+        run: yarn typedoc models.d.ts --out build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: build
