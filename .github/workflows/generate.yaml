@@ -1,4 +1,4 @@
-#on: push
+on: push
 name: Generate TypeScript Models definitions from Eloquent
 jobs:
   phpunit-mysql:
