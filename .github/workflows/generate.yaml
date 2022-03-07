@@ -17,6 +17,9 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
+      - name: Instantiate package
+        run: apt-get install git -y
+
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
@@ -51,9 +54,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: build
-
-      - name: Instantiate package
-        run: apt-get install git -y
 
       - uses: EndBug/add-and-commit@v7 # You can change this to use a specific version.
         with:
