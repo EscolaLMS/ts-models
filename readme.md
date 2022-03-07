@@ -1,5 +1,7 @@
 # Escola LMS (Wellms) TypeScript Definitions
 
+[npm](https://www.npmjs.com/package/@escolalms/ts-models) | [typedoc page](https://escolalms.github.io/ts-models/)
+
 ## Automatic transformation of Eloquent Models to TypeScript Definition
 
 This package transforms all Eloquent Models defined in
@@ -10,7 +12,7 @@ This package transforms all Eloquent Models defined in
 to Typescript definitions
 
 - pure [definitions](models.d.ts)
-- generated [typedoc][https://escolalms.github.io/ts-models/]
+- generated [typedoc](https://escolalms.github.io/ts-models/)
 
 ## Installing
 
