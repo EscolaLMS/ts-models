@@ -1,5 +1,5 @@
-on: push
-name: Generate
+#on: push
+name: Generate TypeScript Models definitions from Eloquent
 jobs:
   phpunit-mysql:
     runs-on: ubuntu-latest
