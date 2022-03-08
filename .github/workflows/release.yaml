@@ -20,5 +20,6 @@ jobs:
 
       - uses: EndBug/add-and-commit@v7 # You can change this to use a specific version.
         with:
+          push: origin main --force
           branch: main
           add: "package.json"
