@@ -18,5 +18,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: cat package.json    
+      - run: pwd
+      - run: ls
 
       - uses: EndBug/add-and-commit@v8 # You can change this to use a specific version.
