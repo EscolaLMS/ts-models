@@ -20,5 +20,3 @@ jobs:
       - run: cat package.json    
 
       - uses: EndBug/add-and-commit@v8 # You can change this to use a specific version.
-        with:
-          add: "*.json --force"
