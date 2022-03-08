@@ -12,11 +12,12 @@ jobs:
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
-      - run: git config --global user.email "github@escolalms.com" &&   git config --global user.name "Github"
+      - run: git config --global user.email "github@escolalms.com" &&   git config --global user.name "Github"      
       - run: npm version ${{github.ref_name}}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: cat package.json    
 
       - uses: EndBug/add-and-commit@v7 # You can change this to use a specific version.
         with:
