@@ -14,6 +14,6 @@ use EscolaLms\Payments\Contracts\Billable as ContractsBillable;
 class User extends CoreUser implements ContractsBillable, ContractsCanOrder
 {
     use Billable;
-    use CanOrder;
+    // use CanOrder;
     use HasCourses;
 }
