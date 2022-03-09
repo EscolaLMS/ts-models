@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-//use EscolaLms\Core\Models\User as CoreUser;
-use EscolaLms\Auth\Models\User as CoreUser;
+use EscolaLms\Core\Models\User as CoreUser;
+use EscolaLms\Auth\Models\User as AuthUser;
 use EscolaLms\Cart\Models\Contracts\CanOrder as ContractsCanOrder;
 use EscolaLms\Cart\Models\Traits\CanOrder;
 use EscolaLms\Courses\Models\Traits\HasCourses;
