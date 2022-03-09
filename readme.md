@@ -18,6 +18,9 @@ to Typescript definitions
 
 1. install dependencies `npm i @escolalms/ts-models` or `yarn add @escolalms/ts-models` 
 2. import in main `index.d.ts` (if you have one) 
+```js
+  import '@escolalms/ts-models'; 
+```
 3. add this to `tsconfig` in include section
 
 ```json
