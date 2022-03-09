@@ -36,12 +36,11 @@ jobs:
       - name: Prepare Laravel Application
         run: |
           php artisan key:generate
-          php artisan migrate:fresh
           php artisan passport:keys --force
           php artisan passport:client --personal --no-interaction
 
       - name: Generate TypeScript
-        run: php artisan config:cache && php artisan typescript:generate
+        run: php artisan typescript:generate
 
       - name: Install deps
         run: npm i
