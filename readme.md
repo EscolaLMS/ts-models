@@ -2,7 +2,7 @@
 
 [npm](https://www.npmjs.com/package/@escolalms/ts-models) | [typedoc page](https://escolalms.github.io/ts-models/)
 
-## Automatic transformation of Eloquent Models to TypeScript Definition
+## Automatic transformation of Eloquent Models and Request rules to TypeScript Definition
 
 This package transforms all Eloquent Models defined in
 
@@ -16,11 +16,13 @@ to Typescript definitions
 
 ## Installing
 
-1. install dependencies `npm i @escolalms/ts-models` or `yarn add @escolalms/ts-models` 
-2. import in main `index.d.ts` (if you have one) 
+1. install dependencies `npm i @escolalms/ts-models` or `yarn add @escolalms/ts-models`
+2. import in main `index.d.ts` (if you have one)
+
 ```js
-  import '@escolalms/ts-models'; 
+import "@escolalms/ts-models";
 ```
+
 3. add this to `tsconfig` in include section
 
 ```json
