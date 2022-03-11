@@ -108,7 +108,7 @@ return [
 
         'EscolaLms\\Permissions\\Http\\Requests\\' => "vendor/escolalms/permissions/src/Http/Requests/",
 
-        // 'EscolaLms\\Questionnaire\\Http\\Requests\\' => "vendor/escolalms/questionnaire/src/Http/Requests/", // waiting for custom role here https://github.com/EscolaLMS/Questionnaire/blob/main/src/Http/Requests/QuestionnaireStarsFrontRequest.php#L34
+        'EscolaLms\\Questionnaire\\Http\\Requests\\' => "vendor/escolalms/questionnaire/src/Http/Requests/", // waiting for custom role here https://github.com/EscolaLMS/Questionnaire/blob/main/src/Http/Requests/QuestionnaireStarsFrontRequest.php#L34
 
         'EscolaLms\\Reports\\Http\\Requests\\' => "vendor/escolalms/reports/src/Http/Requests/",
         'EscolaLms\\Reports\\Http\\Requests\\Admin\\' => "vendor/escolalms/reports/src/Http/Requests/Admin/",
