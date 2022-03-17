@@ -461,6 +461,28 @@ declare namespace EscolaLms.Categories.Models {
 
 }
 
+declare namespace EscolaLms.Webinar.Models {
+    export interface Webinar {
+        id: number;
+        base_price: number | null;
+        name: string;
+        status: string;
+        description: string;
+        duration: string | null;
+        active_from: string | null;
+        active_to: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        image_path: string | null;
+        authors?: Array<EscolaLms.Auth.Models.User> | null;
+        tags?: Array<EscolaLms.Tags.Models.Tag> | null;
+        authors_count?: number | null;
+        tags_count?: number | null;
+        readonly image_url?: string | null;
+    }
+
+}
+
 declare namespace EscolaLms.Consultations.Models {
     export interface ConsultationProposedTerm {
         id: number;
@@ -505,28 +527,6 @@ declare namespace EscolaLms.Consultations.Models {
         updated_at: string | null;
         order_item?: EscolaLms.Cart.Models.OrderItem | null;
         user?: EscolaLms.Auth.Models.User | null;
-    }
-
-}
-
-declare namespace EscolaLms.Webinar.Models {
-    export interface Webinar {
-        id: number;
-        base_price: number | null;
-        name: string;
-        status: string;
-        description: string;
-        duration: string | null;
-        active_from: string | null;
-        active_to: string | null;
-        created_at: string | null;
-        updated_at: string | null;
-        image_path: string | null;
-        authors?: Array<EscolaLms.Auth.Models.User> | null;
-        tags?: Array<EscolaLms.Tags.Models.Tag> | null;
-        authors_count?: number | null;
-        tags_count?: number | null;
-        readonly image_url?: string | null;
     }
 
 }
@@ -2056,6 +2056,39 @@ declare namespace EscolaLms.Categories.Http.Requests {
 
 }
 
+declare namespace EscolaLms.Webinar.Http.Requests {
+    export interface StoreWebinarRequest {
+        base_price?: number;
+        name: string;
+        status: string;
+        description: string;
+        duration?: string | null;
+        active_from?: string;
+        active_to?: string;
+        image?: Blob | File | null;
+        authors?: Array<number>;
+    }
+
+    export interface ListWebinarsRequest {
+        name?: string;
+        base_price?: number;
+        status?: Array<string>;
+    }
+
+    export interface UpdateWebinarRequest {
+        base_price?: number;
+        name?: string;
+        status?: string;
+        description?: string;
+        duration?: string | null;
+        active_from?: string;
+        active_to?: string;
+        image?: Blob | File | null;
+        authors?: Array<number>;
+    }
+
+}
+
 declare namespace EscolaLms.Consultations.Http.Requests {
     export interface ShowConsultationRequest {}
 
@@ -2110,39 +2143,6 @@ declare namespace EscolaLms.Consultations.Http.Requests {
     }
 
     export interface ShowAPIConsultationRequest {}
-
-}
-
-declare namespace EscolaLms.Webinar.Http.Requests {
-    export interface StoreWebinarRequest {
-        base_price?: number;
-        name: string;
-        status: string;
-        description: string;
-        duration?: string | null;
-        active_from?: string;
-        active_to?: string;
-        image?: Blob | File | null;
-        authors?: Array<number>;
-    }
-
-    export interface ListWebinarsRequest {
-        name?: string;
-        base_price?: number;
-        status?: Array<string>;
-    }
-
-    export interface UpdateWebinarRequest {
-        base_price?: number;
-        name?: string;
-        status?: string;
-        description?: string;
-        duration?: string | null;
-        active_from?: string;
-        active_to?: string;
-        image?: Blob | File | null;
-        authors?: Array<number>;
-    }
 
 }
 
