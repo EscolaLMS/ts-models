@@ -325,6 +325,8 @@ declare namespace EscolaLms.Cart.Models {
         client_country: string | null;
         client_company: string | null;
         client_taxid: string | null;
+        client_email: string | null;
+        client_street_number: string | null;
         items?: Array<EscolaLms.Cart.Models.OrderItem> | null;
         user?: EscolaLms.Cart.Models.User | null;
         items_count?: number | null;
@@ -431,6 +433,7 @@ declare namespace EscolaLms.Cart.Models {
         users_count?: number | null;
         tags_count?: number | null;
         categories_count?: number | null;
+        readonly poster_absolute_url?: string | null;
     }
 
 }
@@ -481,6 +484,7 @@ declare namespace EscolaLms.Consultations.Models {
         updated_at: string | null;
         duration: string | null;
         image_path: string | null;
+        short_desc: string | null;
         author?: EscolaLms.Auth.Models.User | null;
         order_items?: Array<EscolaLms.Cart.Models.OrderItem> | null;
         proposed_terms?: Array<EscolaLms.Consultations.Models.ConsultationProposedTerm> | null;
@@ -488,7 +492,7 @@ declare namespace EscolaLms.Consultations.Models {
         order_items_count?: number | null;
         proposed_terms_count?: number | null;
         categories_count?: number | null;
-        readonly image_url?: string | null;
+        readonly image_url?: string;
     }
 
     export interface ConsultationTerm {
@@ -1764,7 +1768,9 @@ declare namespace EscolaLms.Auth.Http.Requests.Admin {
 declare namespace EscolaLms.Cart.Http.Requests {
     export interface PaymentRequest {
         client_name?: string;
+        client_email?: string;
         client_street?: string;
+        client_street_number?: string;
         client_postal?: string;
         client_city?: string;
         client_country?: string;
@@ -1873,6 +1879,8 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
         id: number;
     }
 
+    export interface ProductableListRequest {}
+
     export interface OrderSearchRequest {
         date_from?: string;
         date_to?: string;
@@ -1966,6 +1974,8 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
     export interface ProductReadRequest {
         id: number;
     }
+
+    export interface ProductableListRequest {}
 
     export interface OrderSearchRequest {
         date_from?: string;
