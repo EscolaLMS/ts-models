@@ -260,6 +260,7 @@ declare namespace EscolaLms.Cart.Models {
         user_id: number | null;
         created_at: string | null;
         updated_at: string | null;
+        coupon_id: number | null;
         user?: EscolaLms.Cart.Models.User | null;
         items?: Array<EscolaLms.Cart.Models.CartItem> | null;
         items_count?: number | null;
@@ -318,6 +319,8 @@ declare namespace EscolaLms.Cart.Models {
         tax: number;
         created_at: string | null;
         updated_at: string | null;
+        coupon_id: number | null;
+        discount: number;
         client_name: string | null;
         client_street: string | null;
         client_postal: string | null;
@@ -1544,6 +1547,268 @@ declare namespace EscolaLms.Video.Models {
         topic?: EscolaLms.Courses.Models.Topic | null;
         readonly poster_url?: string | null;
         readonly url?: string;
+    }
+
+}
+
+declare namespace EscolaLms.Vouchers.Models {
+    export interface Cart {
+        id: number;
+        user_id: number | null;
+        created_at: string | null;
+        updated_at: string | null;
+        coupon_id: number | null;
+        coupon?: EscolaLms.Vouchers.Models.Coupon | null;
+        items?: Array<EscolaLms.Vouchers.Models.CartItem> | null;
+        user?: EscolaLms.Cart.Models.User | null;
+        items_count?: number | null;
+        readonly cart_manager?: any;
+        readonly additional_discount?: number;
+        readonly total_pre_discount?: number;
+        readonly subtotal?: number;
+        readonly total?: number;
+    }
+
+    export interface User {
+        id: number;
+        first_name: string;
+        last_name: string;
+        email: string | null;
+        phone: string | null;
+        password: string | null;
+        is_active: boolean;
+        remember_token: string | null;
+        password_reset_token: string | null;
+        email_verified_at: string | null;
+        path_avatar: string | null;
+        gender: number | null;
+        age: number | null;
+        country: string | null;
+        city: string | null;
+        street: string | null;
+        postcode: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        points: number;
+        notification_channels: string | null;
+        orders?: Array<EscolaLms.Vouchers.Models.Order> | null;
+        cart?: EscolaLms.Vouchers.Models.Cart | null;
+        products?: Array<EscolaLms.Vouchers.Models.Product> | null;
+        notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        read_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        unread_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        roles?: Array<Spatie.Permission.Models.Role> | null;
+        permissions?: Array<Spatie.Permission.Models.Permission> | null;
+        clients?: Array<Laravel.Passport.Client> | null;
+        tokens?: Array<Laravel.Passport.Token> | null;
+        payments?: Array<EscolaLms.Payments.Models.Payment> | null;
+        orders_count?: number | null;
+        products_count?: number | null;
+        notifications_count?: number | null;
+        read_notifications_count?: number | null;
+        unread_notifications_count?: number | null;
+        roles_count?: number | null;
+        permissions_count?: number | null;
+        clients_count?: number | null;
+        tokens_count?: number | null;
+        payments_count?: number | null;
+        readonly name?: any;
+        readonly email_verified?: boolean;
+        readonly avatar_url?: string | null;
+    }
+
+    export interface Coupon {
+        id: number;
+        name: string | null;
+        code: string;
+        active: boolean;
+        type: string;
+        active_from: string | null;
+        active_to: string | null;
+        limit_usage: number | null;
+        limit_per_user: number | null;
+        min_cart_price: number | null;
+        max_cart_price: number | null;
+        amount: number;
+        created_at: string | null;
+        updated_at: string | null;
+        emails?: Array<EscolaLms.Vouchers.Models.CouponEmail> | null;
+        products?: Array<EscolaLms.Vouchers.Models.Product> | null;
+        included_products?: Array<EscolaLms.Vouchers.Models.Product> | null;
+        excluded_products?: Array<EscolaLms.Vouchers.Models.Product> | null;
+        categories?: Array<EscolaLms.Vouchers.Models.Category> | null;
+        included_categories?: Array<EscolaLms.Vouchers.Models.Category> | null;
+        excluded_categories?: Array<EscolaLms.Vouchers.Models.Category> | null;
+        carts?: Array<EscolaLms.Vouchers.Models.Cart> | null;
+        orders?: Array<EscolaLms.Vouchers.Models.Order> | null;
+        emails_count?: number | null;
+        products_count?: number | null;
+        included_products_count?: number | null;
+        excluded_products_count?: number | null;
+        categories_count?: number | null;
+        included_categories_count?: number | null;
+        excluded_categories_count?: number | null;
+        carts_count?: number | null;
+        orders_count?: number | null;
+        readonly value_string?: string;
+    }
+
+    export interface Order {
+        id: number;
+        user_id: number | null;
+        status: number;
+        total: number;
+        subtotal: number;
+        tax: number;
+        created_at: string | null;
+        updated_at: string | null;
+        coupon_id: number | null;
+        discount: number;
+        client_name: string | null;
+        client_street: string | null;
+        client_postal: string | null;
+        client_city: string | null;
+        client_country: string | null;
+        client_company: string | null;
+        client_taxid: string | null;
+        client_email: string | null;
+        client_street_number: string | null;
+        coupon?: EscolaLms.Vouchers.Models.Coupon | null;
+        items?: Array<EscolaLms.Cart.Models.OrderItem> | null;
+        user?: EscolaLms.Cart.Models.User | null;
+        payments?: Array<EscolaLms.Payments.Models.Payment> | null;
+        items_count?: number | null;
+        payments_count?: number | null;
+        readonly quantity?: number;
+        readonly status_name?: string;
+    }
+
+    export interface CouponEmail {
+        id: number;
+        coupon_id: number;
+        email: string;
+        created_at: string | null;
+        updated_at: string | null;
+        coupon?: EscolaLms.Vouchers.Models.Coupon | null;
+    }
+
+    export interface CartItem {
+        id: number;
+        cart_id: number;
+        buyable_type: string;
+        buyable_id: number;
+        quantity: number;
+        options: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        cart?: EscolaLms.Vouchers.Models.Cart | null;
+        buyable?: any | null;
+        readonly subtotal?: any;
+        readonly price?: any;
+        readonly discount_subtotal?: number;
+        readonly discount?: number;
+        readonly total?: any;
+        readonly description?: any;
+        readonly extra_fees?: any;
+        readonly identifier?: string;
+    }
+
+    export interface CouponCategory {
+        id: number;
+        coupon_id: number;
+        category_id: number;
+        excluded: boolean;
+        created_at: string | null;
+        updated_at: string | null;
+        coupon?: EscolaLms.Vouchers.Models.Coupon | null;
+        category?: EscolaLms.Vouchers.Models.Category | null;
+    }
+
+    export interface CouponProduct {
+        id: number;
+        coupon_id: number;
+        excluded: boolean;
+        created_at: string | null;
+        updated_at: string | null;
+        product_id: number;
+        coupon?: EscolaLms.Vouchers.Models.Coupon | null;
+        product?: EscolaLms.Cart.Models.Product | null;
+    }
+
+    export interface Category {
+        id: number;
+        name: string;
+        slug: string | null;
+        is_active: boolean;
+        parent_id: number | null;
+        icon: string | null;
+        icon_class: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        coupons?: Array<EscolaLms.Vouchers.Models.Coupon> | null;
+        products?: Array<EscolaLms.Cart.Models.Product> | null;
+        parent?: EscolaLms.Categories.Models.Category | null;
+        children?: Array<EscolaLms.Categories.Models.Category> | null;
+        users?: Array<App.Models.User> | null;
+        courses?: Array<EscolaLms.Courses.Models.Course> | null;
+        coupons_count?: number | null;
+        products_count?: number | null;
+        children_count?: number | null;
+        users_count?: number | null;
+        courses_count?: number | null;
+        readonly name_with_breadcrumbs?: string;
+    }
+
+    export interface OrderItem {
+        id: number;
+        order_id: number;
+        buyable_type: string;
+        buyable_id: number;
+        quantity: number;
+        options: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        price: number | null;
+        extra_fees: number;
+        tax_rate: number;
+        name: string | null;
+        order?: EscolaLms.Vouchers.Models.Order | null;
+        buyable?: any | null;
+        readonly description?: string | null;
+        readonly subtotal?: number;
+        readonly total?: number;
+        readonly tax?: number;
+        readonly total_with_tax?: number;
+    }
+
+    export interface Product {
+        id: number;
+        name: string;
+        type: string;
+        price: number;
+        price_old: number | null;
+        tax_rate: number;
+        extra_fees: number;
+        purchasable: boolean;
+        teaser_url: string | null;
+        description: string | null;
+        poster_url: string | null;
+        duration: string | null;
+        limit_per_user: number | null;
+        limit_total: number | null;
+        created_at: string | null;
+        updated_at: string | null;
+        coupons?: Array<EscolaLms.Vouchers.Models.Coupon> | null;
+        productables?: Array<EscolaLms.Cart.Models.ProductProductable> | null;
+        users?: Array<EscolaLms.Cart.Models.User> | null;
+        tags?: Array<EscolaLms.Tags.Models.Tag> | null;
+        categories?: Array<EscolaLms.Cart.Models.Category> | null;
+        coupons_count?: number | null;
+        productables_count?: number | null;
+        users_count?: number | null;
+        tags_count?: number | null;
+        categories_count?: number | null;
+        readonly poster_absolute_url?: string | null;
     }
 
 }
