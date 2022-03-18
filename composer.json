@@ -56,6 +56,7 @@
     "escolalms/consultations": "^0",
     "escolalms/assign-without-account": "^0",
     "escolalms/video": "^0",
+    "escolalms/vouchers": "^0",
     "fideloper/proxy": "^4.0",
     "fruitcake/laravel-cors": "^2.0",
     "guzzlehttp/guzzle": "^7.3",
