@@ -465,6 +465,66 @@ declare namespace EscolaLms.Categories.Models {
 }
 
 declare namespace EscolaLms.Webinar.Models {
+    export interface WebinarUserPivot {
+        id: number;
+        user_id: number;
+        webinar_id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        user?: EscolaLms.Core.Models.User | null;
+        webinar?: EscolaLms.Webinar.Models.Webinar | null;
+    }
+
+    export interface User {
+        id: number;
+        first_name: string;
+        last_name: string;
+        email: string | null;
+        phone: string | null;
+        password: string | null;
+        is_active: boolean;
+        remember_token: string | null;
+        password_reset_token: string | null;
+        email_verified_at: string | null;
+        path_avatar: string | null;
+        gender: number | null;
+        age: number | null;
+        country: string | null;
+        city: string | null;
+        street: string | null;
+        postcode: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        points: number;
+        notification_channels: string | null;
+        notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        read_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        unread_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        roles?: Array<Spatie.Permission.Models.Role> | null;
+        permissions?: Array<Spatie.Permission.Models.Permission> | null;
+        clients?: Array<Laravel.Passport.Client> | null;
+        tokens?: Array<Laravel.Passport.Token> | null;
+        interests?: Array<EscolaLms.Categories.Models.Category> | null;
+        settings?: Array<EscolaLms.Auth.Models.UserSetting> | null;
+        groups?: Array<EscolaLms.Auth.Models.Group> | null;
+        fields?: Array<EscolaLms.ModelFields.Models.Field> | null;
+        notifications_count?: number | null;
+        read_notifications_count?: number | null;
+        unread_notifications_count?: number | null;
+        roles_count?: number | null;
+        permissions_count?: number | null;
+        clients_count?: number | null;
+        tokens_count?: number | null;
+        interests_count?: number | null;
+        settings_count?: number | null;
+        groups_count?: number | null;
+        fields_count?: number | null;
+        readonly name?: any;
+        readonly email_verified?: boolean;
+        readonly avatar_url?: string | null;
+        readonly onboarding_completed?: any;
+    }
+
     export interface Webinar {
         id: number;
         base_price: number | null;
@@ -477,22 +537,90 @@ declare namespace EscolaLms.Webinar.Models {
         created_at: string | null;
         updated_at: string | null;
         image_path: string | null;
+        yt_id: string | null;
+        yt_url: string | null;
+        yt_stream_url: string | null;
+        yt_stream_key: string | null;
+        short_desc: string | null;
+        agenda: string | null;
         authors?: Array<EscolaLms.Auth.Models.User> | null;
         tags?: Array<EscolaLms.Tags.Models.Tag> | null;
+        users?: Array<EscolaLms.Auth.Models.User> | null;
         authors_count?: number | null;
         tags_count?: number | null;
-        readonly image_url?: string | null;
+        users_count?: number | null;
+        readonly image_url?: string;
     }
 
 }
 
 declare namespace EscolaLms.Consultations.Models {
+    export interface User {
+        id: number;
+        first_name: string;
+        last_name: string;
+        email: string | null;
+        phone: string | null;
+        password: string | null;
+        is_active: boolean;
+        remember_token: string | null;
+        password_reset_token: string | null;
+        email_verified_at: string | null;
+        path_avatar: string | null;
+        gender: number | null;
+        age: number | null;
+        country: string | null;
+        city: string | null;
+        street: string | null;
+        postcode: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        points: number;
+        notification_channels: string | null;
+        notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        read_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        unread_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        roles?: Array<Spatie.Permission.Models.Role> | null;
+        permissions?: Array<Spatie.Permission.Models.Permission> | null;
+        clients?: Array<Laravel.Passport.Client> | null;
+        tokens?: Array<Laravel.Passport.Token> | null;
+        interests?: Array<EscolaLms.Categories.Models.Category> | null;
+        settings?: Array<EscolaLms.Auth.Models.UserSetting> | null;
+        groups?: Array<EscolaLms.Auth.Models.Group> | null;
+        fields?: Array<EscolaLms.ModelFields.Models.Field> | null;
+        notifications_count?: number | null;
+        read_notifications_count?: number | null;
+        unread_notifications_count?: number | null;
+        roles_count?: number | null;
+        permissions_count?: number | null;
+        clients_count?: number | null;
+        tokens_count?: number | null;
+        interests_count?: number | null;
+        settings_count?: number | null;
+        groups_count?: number | null;
+        fields_count?: number | null;
+        readonly name?: any;
+        readonly email_verified?: boolean;
+        readonly avatar_url?: string | null;
+        readonly onboarding_completed?: any;
+    }
+
     export interface ConsultationProposedTerm {
         id: number;
         consultation_id: number;
         proposed_at: string;
         created_at: string | null;
         updated_at: string | null;
+        consultation?: EscolaLms.Consultations.Models.Consultation | null;
+    }
+
+    export interface ConsultationUserPivot {
+        id: number;
+        user_id: number;
+        consultation_id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        user?: EscolaLms.Core.Models.User | null;
         consultation?: EscolaLms.Consultations.Models.Consultation | null;
     }
 
@@ -512,11 +640,15 @@ declare namespace EscolaLms.Consultations.Models {
         short_desc: string | null;
         author?: EscolaLms.Auth.Models.User | null;
         order_items?: Array<EscolaLms.Cart.Models.OrderItem> | null;
+        users?: Array<EscolaLms.Auth.Models.User> | null;
         proposed_terms?: Array<EscolaLms.Consultations.Models.ConsultationProposedTerm> | null;
         categories?: Array<EscolaLms.Categories.Models.Category> | null;
+        terms?: Array<EscolaLms.Consultations.Models.ConsultationTerm> | null;
         order_items_count?: number | null;
+        users_count?: number | null;
         proposed_terms_count?: number | null;
         categories_count?: number | null;
+        terms_count?: number | null;
         readonly image_url?: string;
     }
 
@@ -528,8 +660,10 @@ declare namespace EscolaLms.Consultations.Models {
         executed_status: string | null;
         created_at: string | null;
         updated_at: string | null;
+        consultation_id: number | null;
         order_item?: EscolaLms.Cart.Models.OrderItem | null;
         user?: EscolaLms.Auth.Models.User | null;
+        consultation?: EscolaLms.Consultations.Models.Consultation | null;
     }
 
 }
@@ -637,7 +771,6 @@ declare namespace EscolaLms.Courses.Models {
         summary: string | null;
         image_path: string | null;
         video_path: string | null;
-        base_price: number | null;
         duration: string | null;
         subtitle: string | null;
         language: string | null;
@@ -647,7 +780,6 @@ declare namespace EscolaLms.Courses.Models {
         active_from: string | null;
         active_to: string | null;
         hours_to_complete: number | null;
-        purchasable: boolean;
         findable: boolean;
         scorm_sco_id: number | null;
         target_group: string | null;
@@ -868,7 +1000,6 @@ declare namespace EscolaLms.CoursesImportExport.Models {
         summary: string | null;
         image_path: string | null;
         video_path: string | null;
-        base_price: number | null;
         duration: string | null;
         subtitle: string | null;
         language: string | null;
@@ -878,7 +1009,6 @@ declare namespace EscolaLms.CoursesImportExport.Models {
         active_from: string | null;
         active_to: string | null;
         hours_to_complete: number | null;
-        purchasable: boolean;
         findable: boolean;
         scorm_sco_id: number | null;
         target_group: string | null;
@@ -1594,6 +1724,7 @@ declare namespace EscolaLms.Vouchers.Models {
         orders?: Array<EscolaLms.Vouchers.Models.Order> | null;
         cart?: EscolaLms.Vouchers.Models.Cart | null;
         products?: Array<EscolaLms.Vouchers.Models.Product> | null;
+        coupons?: Array<EscolaLms.Vouchers.Models.Coupon> | null;
         notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
         read_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
         unread_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
@@ -1604,6 +1735,7 @@ declare namespace EscolaLms.Vouchers.Models {
         payments?: Array<EscolaLms.Payments.Models.Payment> | null;
         orders_count?: number | null;
         products_count?: number | null;
+        coupons_count?: number | null;
         notifications_count?: number | null;
         read_notifications_count?: number | null;
         unread_notifications_count?: number | null;
@@ -1632,7 +1764,7 @@ declare namespace EscolaLms.Vouchers.Models {
         amount: number;
         created_at: string | null;
         updated_at: string | null;
-        emails?: Array<EscolaLms.Vouchers.Models.CouponEmail> | null;
+        users?: Array<EscolaLms.Vouchers.Models.User> | null;
         products?: Array<EscolaLms.Vouchers.Models.Product> | null;
         included_products?: Array<EscolaLms.Vouchers.Models.Product> | null;
         excluded_products?: Array<EscolaLms.Vouchers.Models.Product> | null;
@@ -1641,7 +1773,7 @@ declare namespace EscolaLms.Vouchers.Models {
         excluded_categories?: Array<EscolaLms.Vouchers.Models.Category> | null;
         carts?: Array<EscolaLms.Vouchers.Models.Cart> | null;
         orders?: Array<EscolaLms.Vouchers.Models.Order> | null;
-        emails_count?: number | null;
+        users_count?: number | null;
         products_count?: number | null;
         included_products_count?: number | null;
         excluded_products_count?: number | null;
@@ -1651,6 +1783,16 @@ declare namespace EscolaLms.Vouchers.Models {
         carts_count?: number | null;
         orders_count?: number | null;
         readonly value_string?: string;
+    }
+
+    export interface CouponUser {
+        id: number;
+        coupon_id: number;
+        user_id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        coupon?: EscolaLms.Vouchers.Models.Coupon | null;
+        user?: EscolaLms.Vouchers.Models.User | null;
     }
 
     export interface Order {
@@ -1681,15 +1823,6 @@ declare namespace EscolaLms.Vouchers.Models {
         payments_count?: number | null;
         readonly quantity?: number;
         readonly status_name?: string;
-    }
-
-    export interface CouponEmail {
-        id: number;
-        coupon_id: number;
-        email: string;
-        created_at: string | null;
-        updated_at: string | null;
-        coupon?: EscolaLms.Vouchers.Models.Coupon | null;
     }
 
     export interface CartItem {
@@ -2112,6 +2245,10 @@ declare namespace EscolaLms.Cart.Http.Requests {
 }
 
 declare namespace EscolaLms.Cart.Http.Requests.Admin {
+    export interface ProductManuallyTriggerRequest {
+        id: number;
+    }
+
     export interface ProductUpdateRequest {
         name?: string;
         description?: string | null;
@@ -2131,6 +2268,7 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
             class?: string;
         }>;
         categories?: Array<number>;
+        tags?: Array<string>;
     }
 
     export interface ProductableProductRequest {
@@ -2202,12 +2340,17 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
             class?: string;
         }>;
         categories?: Array<number>;
+        tags?: Array<string>;
     }
 
     export interface ProductAttachRequest {
         user_id: number;
     }
 
+    export interface ProductManuallyTriggerRequest {
+        id: number;
+    }
+
     export interface ProductUpdateRequest {
         name?: string;
         description?: string | null;
@@ -2227,6 +2370,7 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
             class?: string;
         }>;
         categories?: Array<number>;
+        tags?: Array<string>;
     }
 
     export interface ProductableProductRequest {
@@ -2298,6 +2442,7 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
             class?: string;
         }>;
         categories?: Array<number>;
+        tags?: Array<string>;
     }
 
     export interface ProductAttachRequest {
@@ -2327,6 +2472,8 @@ declare namespace EscolaLms.Webinar.Http.Requests {
         name: string;
         status: string;
         description: string;
+        agenda?: string | null;
+        short_desc?: string | null;
         duration?: string | null;
         active_from?: string;
         active_to?: string;
@@ -2346,6 +2493,8 @@ declare namespace EscolaLms.Webinar.Http.Requests {
         status?: string;
         description?: string;
         duration?: string | null;
+        agenda?: string | null;
+        short_desc?: string | null;
         active_from?: string;
         active_to?: string;
         image?: Blob | File | null;
@@ -2450,7 +2599,6 @@ declare namespace EscolaLms.Courses.Http.Requests {
         summary?: string | null;
         image_path?: string | null;
         video_path?: string | null;
-        base_price?: number | null;
         duration?: string | null;
         image?: Blob | File;
         video?: Blob | File;
@@ -2464,7 +2612,6 @@ declare namespace EscolaLms.Courses.Http.Requests {
         active_from?: string | null;
         active_to?: string | null;
         hours_to_complete?: number | null;
-        purchasable?: boolean;
         findable?: boolean;
         target_group?: string | null;
         teaser_url?: string | null;
@@ -2505,7 +2652,6 @@ declare namespace EscolaLms.Courses.Http.Requests {
         summary?: string | null;
         image_path?: string | null;
         video_path?: string | null;
-        base_price?: number | null;
         duration?: string | null;
         image?: any;
         video?: any;
@@ -2519,7 +2665,6 @@ declare namespace EscolaLms.Courses.Http.Requests {
         active_from?: string | null;
         active_to?: string | null;
         hours_to_complete?: number | null;
-        purchasable?: boolean;
         findable?: boolean;
         target_group?: string | null;
         teaser_url?: string | null;
@@ -3057,6 +3202,10 @@ declare namespace EscolaLms.Templates.Http.Requests {
 
     export interface TemplateDeleteRequest {}
 
+    export interface EventTriggerRequest {
+        users: Array<number>;
+    }
+
 }
 
 declare namespace EscolaLms.TemplatesPdf.Http.Requests {
@@ -3067,5 +3216,60 @@ declare namespace EscolaLms.TemplatesPdf.Http.Requests {
     }
 
     export interface PdfListingRequest {}
+
+}
+
+declare namespace EscolaLms.Vouchers.Http.Requests {
+    export interface UpdateCouponRequest {
+        name?: string | null;
+        code?: string;
+        active?: boolean;
+        active_from?: string | null;
+        active_to?: string | null;
+        limit_usage?: number | null;
+        limit_per_user?: number | null;
+        min_cart_price?: number | null;
+        max_cart_price?: number | null;
+        amount?: number;
+        included_products?: Array<number>;
+        excluded_products?: Array<number>;
+        users?: Array<number>;
+        included_categories?: Array<number>;
+        excluded_categories?: Array<number>;
+    }
+
+    export interface ListCouponsRequest {
+        name?: string;
+        code?: string;
+        type?: string;
+        page?: number;
+        per_page?: number;
+    }
+
+    export interface ApplyCouponRequest {
+        code?: string;
+    }
+
+    export interface ReadCouponRequest {}
+
+    export interface DeleteCouponRequest {}
+
+    export interface CreateCouponRequest {
+        name?: string | null;
+        code: string;
+        active?: boolean;
+        active_from?: string | null;
+        active_to?: string | null;
+        limit_usage?: number | null;
+        limit_per_user?: number | null;
+        min_cart_price?: number | null;
+        max_cart_price?: number | null;
+        amount: number;
+        included_products?: Array<number>;
+        excluded_products?: Array<number>;
+        users?: Array<number>;
+        included_categories?: Array<number>;
+        excluded_categories?: Array<number>;
+    }
 
 }
