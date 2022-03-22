@@ -129,6 +129,8 @@ return [
         'EscolaLms\\Templates\\Http\\Requests\\' => "vendor/escolalms/templates/src/Http/Requests/",
 
         'EscolaLms\\TemplatesPdf\\Http\\Requests\\' =>  "vendor/escolalms/templates-pdf/src/Http/Requests",
+        
+        'EscolaLms\\Vouchers\\Http\\Requests\\' =>  "vendor/escolalms/vouchers/src/Http/Requests",
 
     ],
 
