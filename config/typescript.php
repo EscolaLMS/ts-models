@@ -75,6 +75,7 @@ return [
         'EscolaLms\\Questionnaire\\Models\\' => "vendor/escolalms/questionnaire/src/Models/",
         'EscolaLms\\Video\\Models\\' => "vendor/escolalms/video/src/Models/",
         'EscolaLms\\Vouchers\\Models\\' => 'vendor/escolalms/vouchers/src/Models',
+        'EscolaLms\\Tracker\\Models\\' => 'vendor/escolalms/tracker/src/Models',
 
         // ----- Requests ------ //
 
