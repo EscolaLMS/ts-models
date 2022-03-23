@@ -577,6 +577,7 @@ declare namespace EscolaLms.Consultations.Models {
         updated_at: string | null;
         points: number;
         notification_channels: string | null;
+        categories?: Array<EscolaLms.Consultations.Models.User> | null;
         notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
         read_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
         unread_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
@@ -588,6 +589,7 @@ declare namespace EscolaLms.Consultations.Models {
         settings?: Array<EscolaLms.Auth.Models.UserSetting> | null;
         groups?: Array<EscolaLms.Auth.Models.Group> | null;
         fields?: Array<EscolaLms.ModelFields.Models.Field> | null;
+        categories_count?: number | null;
         notifications_count?: number | null;
         read_notifications_count?: number | null;
         unread_notifications_count?: number | null;
@@ -638,9 +640,9 @@ declare namespace EscolaLms.Consultations.Models {
         duration: string | null;
         image_path: string | null;
         short_desc: string | null;
-        author?: EscolaLms.Auth.Models.User | null;
+        author?: EscolaLms.Consultations.Models.User | null;
         order_items?: Array<EscolaLms.Cart.Models.OrderItem> | null;
-        users?: Array<EscolaLms.Auth.Models.User> | null;
+        users?: Array<EscolaLms.Consultations.Models.User> | null;
         proposed_terms?: Array<EscolaLms.Consultations.Models.ConsultationProposedTerm> | null;
         categories?: Array<EscolaLms.Categories.Models.Category> | null;
         terms?: Array<EscolaLms.Consultations.Models.ConsultationTerm> | null;
@@ -1439,6 +1441,7 @@ declare namespace EscolaLms.StationaryEvents.Models {
         created_at: string | null;
         updated_at: string | null;
         image_path: string | null;
+        short_desc: string | null;
         users?: Array<EscolaLms.Auth.Models.User> | null;
         authors?: Array<EscolaLms.Auth.Models.User> | null;
         categories?: Array<EscolaLms.Categories.Models.Category> | null;
@@ -1942,6 +1945,21 @@ declare namespace EscolaLms.Vouchers.Models {
         tags_count?: number | null;
         categories_count?: number | null;
         readonly poster_absolute_url?: string | null;
+    }
+
+}
+
+declare namespace EscolaLms.Tracker.Models {
+    export interface TrackRoute {
+        id: number;
+        user_id: number | null;
+        path: string | null;
+        full_path: string | null;
+        method: string | null;
+        extra: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        user?: EscolaLms.Core.Models.User | null;
     }
 
 }
@@ -3115,6 +3133,7 @@ declare namespace EscolaLms.StationaryEvents.Http.Requests {
     export interface UpdateStationaryEventRequest {
         name?: string | null;
         description?: string | null;
+        short_desc?: string | null;
         started_at?: string | null;
         finished_at?: string | null;
         base_price?: number | null;
@@ -3136,6 +3155,7 @@ declare namespace EscolaLms.StationaryEvents.Http.Requests {
     export interface CreateStationaryEventRequest {
         name: string;
         description: string;
+        short_desc?: string | null;
         started_at: string;
         finished_at: string;
         base_price?: number | null;
