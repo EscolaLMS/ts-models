@@ -331,7 +331,7 @@ declare namespace EscolaLms.Cart.Models {
         client_email: string | null;
         client_street_number: string | null;
         items?: Array<EscolaLms.Cart.Models.OrderItem> | null;
-        user?: EscolaLms.Cart.Models.User | null;
+        user?: EscolaLms.Core.Models.User | null;
         items_count?: number | null;
         readonly quantity?: number;
         readonly status_name?: string;
@@ -344,8 +344,20 @@ declare namespace EscolaLms.Cart.Models {
         productable_id: number;
         created_at: string | null;
         updated_at: string | null;
+        quantity: number;
         product?: EscolaLms.Cart.Models.Product | null;
         productable?: any | null;
+    }
+
+    export interface ProductUser {
+        id: number;
+        product_id: number;
+        user_id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        quantity: number;
+        product?: EscolaLms.Cart.Models.Product | null;
+        user?: EscolaLms.Cart.Models.User | null;
     }
 
     export interface CartItem {
@@ -543,10 +555,10 @@ declare namespace EscolaLms.Webinar.Models {
         yt_stream_key: string | null;
         short_desc: string | null;
         agenda: string | null;
-        authors?: Array<EscolaLms.Auth.Models.User> | null;
+        trainers?: Array<EscolaLms.Auth.Models.User> | null;
         tags?: Array<EscolaLms.Tags.Models.Tag> | null;
         users?: Array<EscolaLms.Auth.Models.User> | null;
-        authors_count?: number | null;
+        trainers_count?: number | null;
         tags_count?: number | null;
         users_count?: number | null;
         readonly image_url?: string;
@@ -577,7 +589,7 @@ declare namespace EscolaLms.Consultations.Models {
         updated_at: string | null;
         points: number;
         notification_channels: string | null;
-        categories?: Array<EscolaLms.Consultations.Models.User> | null;
+        categories?: Array<EscolaLms.Categories.Models.Category> | null;
         notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
         read_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
         unread_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
@@ -585,10 +597,6 @@ declare namespace EscolaLms.Consultations.Models {
         permissions?: Array<Spatie.Permission.Models.Permission> | null;
         clients?: Array<Laravel.Passport.Client> | null;
         tokens?: Array<Laravel.Passport.Token> | null;
-        interests?: Array<EscolaLms.Categories.Models.Category> | null;
-        settings?: Array<EscolaLms.Auth.Models.UserSetting> | null;
-        groups?: Array<EscolaLms.Auth.Models.Group> | null;
-        fields?: Array<EscolaLms.ModelFields.Models.Field> | null;
         categories_count?: number | null;
         notifications_count?: number | null;
         read_notifications_count?: number | null;
@@ -597,14 +605,9 @@ declare namespace EscolaLms.Consultations.Models {
         permissions_count?: number | null;
         clients_count?: number | null;
         tokens_count?: number | null;
-        interests_count?: number | null;
-        settings_count?: number | null;
-        groups_count?: number | null;
-        fields_count?: number | null;
         readonly name?: any;
         readonly email_verified?: boolean;
         readonly avatar_url?: string | null;
-        readonly onboarding_completed?: any;
     }
 
     export interface ConsultationProposedTerm {
@@ -622,7 +625,10 @@ declare namespace EscolaLms.Consultations.Models {
         consultation_id: number;
         created_at: string | null;
         updated_at: string | null;
-        user?: EscolaLms.Core.Models.User | null;
+        executed_at: string | null;
+        executed_status: string | null;
+        reminder_status: string | null;
+        user?: EscolaLms.Consultations.Models.User | null;
         consultation?: EscolaLms.Consultations.Models.Consultation | null;
     }
 
@@ -641,31 +647,15 @@ declare namespace EscolaLms.Consultations.Models {
         image_path: string | null;
         short_desc: string | null;
         author?: EscolaLms.Consultations.Models.User | null;
-        order_items?: Array<EscolaLms.Cart.Models.OrderItem> | null;
         users?: Array<EscolaLms.Consultations.Models.User> | null;
         proposed_terms?: Array<EscolaLms.Consultations.Models.ConsultationProposedTerm> | null;
         categories?: Array<EscolaLms.Categories.Models.Category> | null;
-        terms?: Array<EscolaLms.Consultations.Models.ConsultationTerm> | null;
-        order_items_count?: number | null;
+        terms?: Array<EscolaLms.Consultations.Models.ConsultationUserPivot> | null;
         users_count?: number | null;
         proposed_terms_count?: number | null;
         categories_count?: number | null;
         terms_count?: number | null;
         readonly image_url?: string;
-    }
-
-    export interface ConsultationTerm {
-        id: number;
-        user_id: number;
-        order_item_id: number;
-        executed_at: string | null;
-        executed_status: string | null;
-        created_at: string | null;
-        updated_at: string | null;
-        consultation_id: number | null;
-        order_item?: EscolaLms.Cart.Models.OrderItem | null;
-        user?: EscolaLms.Auth.Models.User | null;
-        consultation?: EscolaLms.Consultations.Models.Consultation | null;
     }
 
 }
@@ -1274,7 +1264,7 @@ declare namespace EscolaLms.Pages.Models {
 }
 
 declare namespace EscolaLms.Payments.Models {
-    export interface Billable {
+    export interface User {
         id: number;
         first_name: string;
         last_name: string;
@@ -1327,9 +1317,12 @@ declare namespace EscolaLms.Payments.Models {
         payable_type: string | null;
         payable_id: number | null;
         billable_type: string | null;
-        billable_id: number | null;
+        user_id: number | null;
+        driver: string | null;
+        gateway_order_id: string | null;
+        redirect_url: string | null;
         payable?: any | null;
-        billable?: any | null;
+        user?: EscolaLms.Payments.Models.User | null;
     }
 
 }
@@ -1820,7 +1813,7 @@ declare namespace EscolaLms.Vouchers.Models {
         client_street_number: string | null;
         coupon?: EscolaLms.Vouchers.Models.Coupon | null;
         items?: Array<EscolaLms.Cart.Models.OrderItem> | null;
-        user?: EscolaLms.Cart.Models.User | null;
+        user?: EscolaLms.Core.Models.User | null;
         payments?: Array<EscolaLms.Payments.Models.Payment> | null;
         items_count?: number | null;
         payments_count?: number | null;
@@ -2256,8 +2249,9 @@ declare namespace EscolaLms.Cart.Http.Requests {
         page?: number;
     }
 
-    export interface ProductAddToCartRequest {
+    export interface ProductSetQuantityInCartRequest {
         id: number;
+        quantity?: number;
     }
 
 }
@@ -2284,6 +2278,7 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
         productables?: Array<{
             id?: number;
             class?: string;
+            quantity?: number;
         }>;
         categories?: Array<number>;
         tags?: Array<string>;
@@ -2356,6 +2351,7 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
         productables?: Array<{
             id?: number;
             class?: string;
+            quantity?: number;
         }>;
         categories?: Array<number>;
         tags?: Array<string>;
@@ -2386,6 +2382,7 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
         productables?: Array<{
             id?: number;
             class?: string;
+            quantity?: number;
         }>;
         categories?: Array<number>;
         tags?: Array<string>;
@@ -2458,6 +2455,7 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
         productables?: Array<{
             id?: number;
             class?: string;
+            quantity?: number;
         }>;
         categories?: Array<number>;
         tags?: Array<string>;
@@ -2496,7 +2494,7 @@ declare namespace EscolaLms.Webinar.Http.Requests {
         active_from?: string;
         active_to?: string;
         image?: Blob | File | null;
-        authors?: Array<number>;
+        trainers?: Array<number>;
     }
 
     export interface ListWebinarsRequest {
@@ -2516,13 +2514,17 @@ declare namespace EscolaLms.Webinar.Http.Requests {
         active_from?: string;
         active_to?: string;
         image?: Blob | File | null;
-        authors?: Array<number>;
+        trainers?: Array<number>;
     }
 
 }
 
 declare namespace EscolaLms.Consultations.Http.Requests {
     export interface ShowConsultationRequest {}
+
+    export interface ChangeTermConsultationRequest {
+        executed_at?: string;
+    }
 
     export interface UpdateConsultationRequest {
         base_price?: number;
@@ -2825,7 +2827,7 @@ declare namespace EscolaLms.ModelFields.Http.Requests {
         name: string;
         rules?: string;
         extra?: string;
-        default?: string;
+        default?: string | null;
         class_type: string;
     }
 
@@ -2907,8 +2909,7 @@ declare namespace EscolaLms.Payments.Http.Requests.Admin {
     export interface PaymentsSearchAdminRequest {
         payable_id?: number;
         payable_type?: string;
-        billable_id?: number;
-        billable_type?: string;
+        user_id?: number;
         date_from?: string;
         date_to?: string;
         order_id?: string;
@@ -2918,8 +2919,7 @@ declare namespace EscolaLms.Payments.Http.Requests.Admin {
     export interface PaymentsSearchAdminRequest {
         payable_id?: number;
         payable_type?: string;
-        billable_id?: number;
-        billable_type?: string;
+        user_id?: number;
         date_from?: string;
         date_to?: string;
         order_id?: string;
@@ -3195,6 +3195,8 @@ declare namespace EscolaLms.Templates.Http.Requests {
 
     export interface TemplateListAssignableRequest {
         assignable_class?: string;
+        event?: string;
+        channel?: string;
     }
 
     export interface TemplateAssignedRequest {
@@ -3233,6 +3235,7 @@ declare namespace EscolaLms.TemplatesPdf.Http.Requests {
 
     export interface PdfListingAdminRequest {
         user_id?: number;
+        template_id?: number;
     }
 
     export interface PdfListingRequest {}
