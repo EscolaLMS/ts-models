@@ -74,6 +74,8 @@ return [
         'EscolaLms\\TopicTypes\\Models\\' => "vendor/escolalms/topic-types/src/Models/",
         'EscolaLms\\Questionnaire\\Models\\' => "vendor/escolalms/questionnaire/src/Models/",
         'EscolaLms\\Video\\Models\\' => "vendor/escolalms/video/src/Models/",
+        'EscolaLms\\Vouchers\\Models\\' => 'vendor/escolalms/vouchers/src/Models',
+        'EscolaLms\\Tracker\\Models\\' => 'vendor/escolalms/tracker/src/Models',
 
         // ----- Requests ------ //
 
@@ -128,6 +130,8 @@ return [
         'EscolaLms\\Templates\\Http\\Requests\\' => "vendor/escolalms/templates/src/Http/Requests/",
 
         'EscolaLms\\TemplatesPdf\\Http\\Requests\\' =>  "vendor/escolalms/templates-pdf/src/Http/Requests",
+        
+        'EscolaLms\\Vouchers\\Http\\Requests\\' =>  "vendor/escolalms/vouchers/src/Http/Requests",
 
     ],
 
