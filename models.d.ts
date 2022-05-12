@@ -448,6 +448,7 @@ declare namespace EscolaLms.Cart.Models {
         users_count?: number | null;
         tags_count?: number | null;
         categories_count?: number | null;
+        related_products?: Array<EscolaLms.Cart.Models.Product>;
         readonly poster_absolute_url?: string | null;
     }
 
