@@ -133,6 +133,8 @@ return [
         
         'EscolaLms\\Vouchers\\Http\\Requests\\' =>  "vendor/escolalms/vouchers/src/Http/Requests",
 
+        'EscolaLms\\Translations\\Http\\Requests\\' =>  "vendor/escolalms/translations/src/Http/Requests",
+
     ],
 
     'customRules' => [
