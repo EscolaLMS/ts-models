@@ -25,7 +25,7 @@
     "php": ">=7.4",
     "doctrine/dbal": "^2|^3",
     "escolalms/auth": "^0",
-    "escolalms/cart": "^0",
+    "escolalms/cart": "^0.4",
     "escolalms/categories": "^0",
     "escolalms/core": "^1",
     "escolalms/courses": "^0",
