@@ -78,6 +78,28 @@ declare namespace Laravel.Passport {
         client?: Laravel.Passport.Client | null;
     }
 
+    export interface RefreshToken {
+        id: string;
+        access_token_id: string;
+        revoked: boolean;
+        expires_at: string | null;
+        access_token?: Laravel.Passport.Token | null;
+    }
+
+    export interface Token {
+        id: string;
+        user_id: number | null;
+        client_id: number;
+        name: string | null;
+        scopes: string | null;
+        revoked: boolean;
+        created_at: string | null;
+        updated_at: string | null;
+        expires_at: string | null;
+        client?: Laravel.Passport.Client | null;
+        user?: App.Models.User | null;
+    }
+
     export interface Client {
         id: number;
         user_id: number | null;
@@ -98,34 +120,12 @@ declare namespace Laravel.Passport {
         readonly plain_secret?: any;
     }
 
-    export interface Token {
-        id: string;
-        user_id: number | null;
-        client_id: number;
-        name: string | null;
-        scopes: string | null;
-        revoked: boolean;
-        created_at: string | null;
-        updated_at: string | null;
-        expires_at: string | null;
-        client?: Laravel.Passport.Client | null;
-        user?: App.Models.User | null;
-    }
-
     export interface PersonalAccessClient {
         id: number;
         client_id: number;
         created_at: string | null;
         updated_at: string | null;
         client?: Laravel.Passport.Client | null;
-    }
-
-    export interface RefreshToken {
-        id: string;
-        access_token_id: string;
-        revoked: boolean;
-        expires_at: string | null;
-        access_token?: Laravel.Passport.Token | null;
     }
 
 }
@@ -154,14 +154,14 @@ declare namespace Spatie.Permission.Models {
 }
 
 declare namespace Peopleaps.Scorm.Model {
+    export interface ScormScoTrackingModel {
+        sco?: Peopleaps.Scorm.Model.ScormScoModel | null;
+    }
+
     export interface ScormScoModel {
         scorm?: Peopleaps.Scorm.Model.ScormModel | null;
         sco_trackings?: Array<Peopleaps.Scorm.Model.ScormScoTrackingModel> | null;
         sco_trackings_count?: number | null;
-    }
-
-    export interface ScormScoTrackingModel {
-        sco?: Peopleaps.Scorm.Model.ScormScoModel | null;
     }
 
     export interface ScormModel {
@@ -186,9 +186,25 @@ declare namespace EscolaLms.AssignWithoutAccount.Models {
 }
 
 declare namespace EscolaLms.Auth.Models {
-    export interface GroupUser {
-        group_id: number;
+    export interface PreUser {
+        id: number;
+        first_name: string | null;
+        last_name: string | null;
+        token: string;
+        provider: string;
+        provider_id: string;
+        created_at: string | null;
+        updated_at: string | null;
+    }
+
+    export interface SocialAccount {
+        id: number;
         user_id: number;
+        provider: string;
+        provider_id: string;
+        created_at: string | null;
+        updated_at: string | null;
+        user?: EscolaLms.Auth.Models.User | null;
     }
 
     export interface UserSetting {
@@ -196,6 +212,11 @@ declare namespace EscolaLms.Auth.Models {
         key: string;
         value: string | null;
         user?: EscolaLms.Auth.Models.User | null;
+    }
+
+    export interface GroupUser {
+        group_id: number;
+        user_id: number;
     }
 
     export interface Group {
@@ -261,6 +282,28 @@ declare namespace EscolaLms.Auth.Models {
 }
 
 declare namespace EscolaLms.Cart.Models {
+    export interface OrderItem {
+        id: number;
+        order_id: number;
+        buyable_type: string;
+        buyable_id: number;
+        quantity: number;
+        options: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        price: number | null;
+        extra_fees: number;
+        tax_rate: number;
+        name: string | null;
+        buyable?: any | null;
+        order?: EscolaLms.Cart.Models.Order | null;
+        readonly description?: string | null;
+        readonly subtotal?: number;
+        readonly total?: number;
+        readonly tax?: number;
+        readonly total_with_tax?: number;
+    }
+
     export interface CartItem {
         id: number;
         cart_id: number;
@@ -329,37 +372,64 @@ declare namespace EscolaLms.Cart.Models {
         readonly status_name?: string;
     }
 
-    export interface ProductUser {
+    export interface Product {
+        id: number;
+        name: string;
+        type: string;
+        price: number;
+        price_old: number | null;
+        tax_rate: number;
+        extra_fees: number;
+        purchasable: boolean;
+        teaser_url: string | null;
+        description: string | null;
+        poster_url: string | null;
+        duration: string | null;
+        limit_per_user: number | null;
+        limit_total: number | null;
+        created_at: string | null;
+        updated_at: string | null;
+        productables?: Array<EscolaLms.Cart.Models.ProductProductable> | null;
+        users?: Array<EscolaLms.Cart.Models.User> | null;
+        tags?: Array<EscolaLms.Tags.Models.Tag> | null;
+        categories?: Array<EscolaLms.Cart.Models.Category> | null;
+        related_products?: Array<EscolaLms.Cart.Models.Product> | null;
+        productables_count?: number | null;
+        users_count?: number | null;
+        tags_count?: number | null;
+        categories_count?: number | null;
+        related_products_count?: number | null;
+        readonly poster_url_or_productable_thumbnail?: string | null;
+        readonly poster_absolute_url?: string | null;
+        readonly authors?: any;
+        readonly calculated_duration?: number;
+    }
+
+    export interface ProductProductable {
         id: number;
         product_id: number;
-        user_id: number;
+        productable_type: string;
+        productable_id: number;
         created_at: string | null;
         updated_at: string | null;
         quantity: number;
         product?: EscolaLms.Cart.Models.Product | null;
-        user?: EscolaLms.Cart.Models.User | null;
+        productable?: any | null;
+        readonly canonical_productable?: any | null;
     }
 
-    export interface OrderItem {
+    export interface Cart {
         id: number;
-        order_id: number;
-        buyable_type: string;
-        buyable_id: number;
-        quantity: number;
-        options: string | null;
+        user_id: number | null;
         created_at: string | null;
         updated_at: string | null;
-        price: number | null;
-        extra_fees: number;
-        tax_rate: number;
-        name: string | null;
-        buyable?: any | null;
-        order?: EscolaLms.Cart.Models.Order | null;
-        readonly description?: string | null;
+        coupon_id: number | null;
+        user?: EscolaLms.Cart.Models.User | null;
+        items?: Array<EscolaLms.Cart.Models.CartItem> | null;
+        items_count?: number | null;
+        readonly cart_manager?: any;
         readonly subtotal?: number;
         readonly total?: number;
-        readonly tax?: number;
-        readonly total_with_tax?: number;
     }
 
     export interface User {
@@ -406,63 +476,15 @@ declare namespace EscolaLms.Cart.Models {
         readonly avatar_url?: string | null;
     }
 
-    export interface ProductProductable {
+    export interface ProductUser {
         id: number;
         product_id: number;
-        productable_type: string;
-        productable_id: number;
+        user_id: number;
         created_at: string | null;
         updated_at: string | null;
         quantity: number;
         product?: EscolaLms.Cart.Models.Product | null;
-        productable?: any | null;
-        readonly canonical_productable?: any | null;
-    }
-
-    export interface Product {
-        id: number;
-        name: string;
-        type: string;
-        price: number;
-        price_old: number | null;
-        tax_rate: number;
-        extra_fees: number;
-        purchasable: boolean;
-        teaser_url: string | null;
-        description: string | null;
-        poster_url: string | null;
-        duration: string | null;
-        limit_per_user: number | null;
-        limit_total: number | null;
-        created_at: string | null;
-        updated_at: string | null;
-        productables?: Array<EscolaLms.Cart.Models.ProductProductable> | null;
-        users?: Array<EscolaLms.Cart.Models.User> | null;
-        tags?: Array<EscolaLms.Tags.Models.Tag> | null;
-        categories?: Array<EscolaLms.Cart.Models.Category> | null;
-        related_products?: Array<EscolaLms.Cart.Models.Product> | null;
-        productables_count?: number | null;
-        users_count?: number | null;
-        tags_count?: number | null;
-        categories_count?: number | null;
-        related_products_count?: number | null;
-        readonly poster_absolute_url?: string | null;
-        readonly authors?: any;
-        readonly calculated_duration?: number;
-    }
-
-    export interface Cart {
-        id: number;
-        user_id: number | null;
-        created_at: string | null;
-        updated_at: string | null;
-        coupon_id: number | null;
         user?: EscolaLms.Cart.Models.User | null;
-        items?: Array<EscolaLms.Cart.Models.CartItem> | null;
-        items_count?: number | null;
-        readonly cart_manager?: any;
-        readonly subtotal?: number;
-        readonly total?: number;
     }
 
 }
@@ -587,20 +609,6 @@ declare namespace EscolaLms.Webinar.Models {
 }
 
 declare namespace EscolaLms.Consultations.Models {
-    export interface ConsultationUserPivot {
-        id: number;
-        user_id: number;
-        consultation_id: number;
-        created_at: string | null;
-        updated_at: string | null;
-        executed_at: string | null;
-        executed_status: string | null;
-        reminder_status: string | null;
-        product_id: number | null;
-        user?: EscolaLms.Consultations.Models.User | null;
-        consultation?: EscolaLms.Consultations.Models.Consultation | null;
-    }
-
     export interface ConsultationProposedTerm {
         id: number;
         consultation_id: number;
@@ -608,6 +616,33 @@ declare namespace EscolaLms.Consultations.Models {
         created_at: string | null;
         updated_at: string | null;
         consultation?: EscolaLms.Consultations.Models.Consultation | null;
+    }
+
+    export interface Consultation {
+        id: number;
+        author_id: number | null;
+        name: string;
+        status: string;
+        description: string;
+        active_from: string | null;
+        active_to: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        duration: string | null;
+        image_path: string | null;
+        short_desc: string | null;
+        logotype_path: string | null;
+        author?: EscolaLms.Consultations.Models.User | null;
+        users?: Array<EscolaLms.Consultations.Models.User> | null;
+        proposed_terms?: Array<EscolaLms.Consultations.Models.ConsultationProposedTerm> | null;
+        categories?: Array<EscolaLms.Categories.Models.Category> | null;
+        terms?: Array<EscolaLms.Consultations.Models.ConsultationUserPivot> | null;
+        users_count?: number | null;
+        proposed_terms_count?: number | null;
+        categories_count?: number | null;
+        terms_count?: number | null;
+        readonly image_url?: string;
+        readonly logotype_url?: string;
     }
 
     export interface User {
@@ -665,31 +700,18 @@ declare namespace EscolaLms.Consultations.Models {
         readonly onboarding_completed?: any;
     }
 
-    export interface Consultation {
+    export interface ConsultationUserPivot {
         id: number;
-        author_id: number | null;
-        name: string;
-        status: string;
-        description: string;
-        active_from: string | null;
-        active_to: string | null;
+        user_id: number;
+        consultation_id: number;
         created_at: string | null;
         updated_at: string | null;
-        duration: string | null;
-        image_path: string | null;
-        short_desc: string | null;
-        logotype_path: string | null;
-        author?: EscolaLms.Consultations.Models.User | null;
-        users?: Array<EscolaLms.Consultations.Models.User> | null;
-        proposed_terms?: Array<EscolaLms.Consultations.Models.ConsultationProposedTerm> | null;
-        categories?: Array<EscolaLms.Categories.Models.Category> | null;
-        terms?: Array<EscolaLms.Consultations.Models.ConsultationUserPivot> | null;
-        users_count?: number | null;
-        proposed_terms_count?: number | null;
-        categories_count?: number | null;
-        terms_count?: number | null;
-        readonly image_url?: string;
-        readonly logotype_url?: string;
+        executed_at: string | null;
+        executed_status: string | null;
+        reminder_status: string | null;
+        product_id: number | null;
+        user?: EscolaLms.Consultations.Models.User | null;
+        consultation?: EscolaLms.Consultations.Models.Consultation | null;
     }
 
 }
@@ -728,32 +750,6 @@ declare namespace EscolaLms.Core.Models {
 }
 
 declare namespace EscolaLms.Courses.Models {
-    export interface H5PUserProgress {
-        id: number;
-        topic_id: number;
-        user_id: number;
-        event: string;
-        data: string;
-        created_at: string | null;
-        updated_at: string | null;
-        user?: EscolaLms.Courses.Tests.Models.User | null;
-        topic?: EscolaLms.Courses.Models.Topic | null;
-    }
-
-    export interface CourseProgress {
-        id: number;
-        user_id: number;
-        topic_id: number;
-        status: boolean;
-        finished_at: string | null;
-        created_at: string | null;
-        updated_at: string | null;
-        seconds: number | null;
-        started_at: string | null;
-        user?: EscolaLms.Courses.Models.User | null;
-        topic?: EscolaLms.Courses.Models.Topic | null;
-    }
-
     export interface CourseAuthorPivot {
         id: number;
         author_id: number;
@@ -762,57 +758,6 @@ declare namespace EscolaLms.Courses.Models {
         updated_at: string | null;
         author?: EscolaLms.Core.Models.User | null;
         course?: EscolaLms.Courses.Models.Course | null;
-    }
-
-    export interface UserTopicTime {
-        id: number;
-        user_id: number;
-        topic_id: number;
-        created_at: string | null;
-        updated_at: string | null;
-    }
-
-    export interface TopicResource {
-        id: number;
-        created_at: string | null;
-        updated_at: string | null;
-        topic_id: number;
-        path: string;
-        name: string;
-        topic?: EscolaLms.Courses.Models.Topic | null;
-        readonly url?: any;
-    }
-
-    export interface Lesson {
-        id: number;
-        created_at: string | null;
-        updated_at: string | null;
-        title: string;
-        duration: string | null;
-        order: number;
-        course_id: number;
-        active: boolean;
-        summary: string | null;
-        course?: EscolaLms.Courses.Models.Course | null;
-        topics?: Array<EscolaLms.Courses.Models.Topic> | null;
-        topics_count?: number | null;
-    }
-
-    export interface Group {
-        id: number;
-        created_at: string | null;
-        updated_at: string | null;
-        name: string;
-        registerable: boolean;
-        parent_id: number | null;
-        courses?: Array<EscolaLms.Courses.Models.Course> | null;
-        users?: Array<EscolaLms.Auth.Models.User> | null;
-        parent?: EscolaLms.Auth.Models.Group | null;
-        children?: Array<EscolaLms.Auth.Models.Group> | null;
-        courses_count?: number | null;
-        users_count?: number | null;
-        children_count?: number | null;
-        readonly name_with_breadcrumbs?: string;
     }
 
     export interface Topic {
@@ -840,6 +785,104 @@ declare namespace EscolaLms.Courses.Models {
         readonly storage_directory?: string;
         readonly course?: any | null;
         readonly is_active?: boolean;
+    }
+
+    export interface TopicResource {
+        id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        topic_id: number;
+        path: string;
+        name: string;
+        topic?: EscolaLms.Courses.Models.Topic | null;
+        readonly url?: any;
+    }
+
+    export interface CourseProgress {
+        id: number;
+        user_id: number;
+        topic_id: number;
+        status: boolean;
+        finished_at: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        seconds: number | null;
+        started_at: string | null;
+        user?: EscolaLms.Courses.Models.User | null;
+        topic?: EscolaLms.Courses.Models.Topic | null;
+    }
+
+    export interface Lesson {
+        id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        title: string;
+        duration: string | null;
+        order: number;
+        course_id: number;
+        active: boolean;
+        summary: string | null;
+        parent_lesson_id: number | null;
+        course?: EscolaLms.Courses.Models.Course | null;
+        topics?: Array<EscolaLms.Courses.Models.Topic> | null;
+        parent_lesson?: EscolaLms.Courses.Models.Lesson | null;
+        children_lessons?: Array<EscolaLms.Courses.Models.Lesson> | null;
+        topics_count?: number | null;
+        children_lessons_count?: number | null;
+    }
+
+    export interface CourseUserPivot {
+        id: number;
+        user_id: number;
+        course_id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        finished: boolean;
+        deadline: string | null;
+        user?: EscolaLms.Core.Models.User | null;
+        course?: EscolaLms.Courses.Models.Course | null;
+    }
+
+    export interface UserTopicTime {
+        id: number;
+        user_id: number;
+        topic_id: number;
+        created_at: string | null;
+        updated_at: string | null;
+    }
+
+    export interface Group {
+        id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        name: string;
+        registerable: boolean;
+        parent_id: number | null;
+        courses?: Array<EscolaLms.Courses.Models.Course> | null;
+        users?: Array<EscolaLms.Auth.Models.User> | null;
+        parent?: EscolaLms.Auth.Models.Group | null;
+        children?: Array<EscolaLms.Auth.Models.Group> | null;
+        courses_count?: number | null;
+        users_count?: number | null;
+        children_count?: number | null;
+        readonly name_with_breadcrumbs?: string;
+    }
+
+    export interface CourseGroupPivot {
+        course_id: number;
+        group_id: number;
+    }
+
+    export interface H5PUserProgress {
+        id: number;
+        topic_id: number;
+        user_id: number;
+        event: string;
+        data: string;
+        created_at: string | null;
+        updated_at: string | null;
+        user?: EscolaLms.Courses.Tests.Models.User | null;
+        topic?: EscolaLms.Courses.Models.Topic | null;
     }
 
     export interface User {
@@ -893,23 +936,6 @@ declare namespace EscolaLms.Courses.Models {
         readonly onboarding_completed?: any;
     }
 
-    export interface CourseUserPivot {
-        id: number;
-        user_id: number;
-        course_id: number;
-        created_at: string | null;
-        updated_at: string | null;
-        finished: boolean;
-        deadline: string | null;
-        user?: EscolaLms.Core.Models.User | null;
-        course?: EscolaLms.Courses.Models.Course | null;
-    }
-
-    export interface CourseGroupPivot {
-        course_id: number;
-        group_id: number;
-    }
-
     export interface Course {
         id: number;
         created_at: string | null;
@@ -932,6 +958,7 @@ declare namespace EscolaLms.Courses.Models {
         target_group: string | null;
         status: string;
         teaser_url: string | null;
+        public: boolean;
         authors?: Array<EscolaLms.Courses.Models.User> | null;
         lessons?: Array<EscolaLms.Courses.Models.Lesson> | null;
         categories?: Array<EscolaLms.Categories.Models.Category> | null;
@@ -1054,6 +1081,7 @@ declare namespace EscolaLms.CoursesImportExport.Models {
         target_group: string | null;
         status: string;
         teaser_url: string | null;
+        public: boolean;
         authors?: Array<EscolaLms.Courses.Models.User> | null;
         lessons?: Array<EscolaLms.Courses.Models.Lesson> | null;
         categories?: Array<EscolaLms.Categories.Models.Category> | null;
@@ -1137,6 +1165,40 @@ declare namespace EscolaLms.CsvUsers.Models {
 }
 
 declare namespace EscolaLms.HeadlessH5P.Models {
+    export interface H5pLibrariesHubCache {
+        id: number;
+        machine_name: string;
+        major_version: number;
+        minor_version: number;
+        patch_version: number;
+        h5p_major_version: number | null;
+        h5p_minor_version: number | null;
+        title: string;
+        summary: string;
+        description: string;
+        icon: string;
+        created_at: number;
+        updated_at: number;
+        is_recommended: number;
+        popularity: number;
+        screenshots: string | null;
+        license: string | null;
+        example: string;
+        tutorial: string | null;
+        keywords: string | null;
+        categories: string | null;
+        owner: string | null;
+    }
+
+    export interface H5PLibraryDependency {
+        library_id: number;
+        required_library_id: number;
+        dependency_type: string;
+        id: number;
+        library?: EscolaLms.HeadlessH5P.Models.H5PLibrary | null;
+        required_library?: EscolaLms.HeadlessH5P.Models.H5PLibrary | null;
+    }
+
     export interface H5PLibrary {
         id: number;
         created_at: string | null;
@@ -1156,15 +1218,41 @@ declare namespace EscolaLms.HeadlessH5P.Models {
         semantics: string;
         tutorial_url: string;
         has_icon: number;
+        add_to: string | null;
         dependencies?: Array<EscolaLms.HeadlessH5P.Models.H5PLibraryDependency> | null;
-        children?: Array<EscolaLms.HeadlessH5P.Models.H5PLibrary> | null;
+        required_libraries?: Array<EscolaLms.HeadlessH5P.Models.H5PLibraryDependency> | null;
         languages?: Array<EscolaLms.HeadlessH5P.Models.H5PLibraryLanguage> | null;
+        contents?: Array<EscolaLms.HeadlessH5P.Models.H5PContent> | null;
         dependencies_count?: number | null;
-        children_count?: number | null;
         languages_count?: number | null;
         readonly library_id?: any;
         readonly machine_name?: string;
+        readonly directory_name?: string;
+        readonly main_version?: string;
+        readonly version?: string;
         readonly uber_name?: string;
+        readonly contents_count?: number;
+        readonly required_libraries_count?: number;
+    }
+
+    export interface H5PContentLibrary {
+        content_id: number;
+        library_id: number;
+        dependency_type: string;
+        weight: number;
+        drop_css: boolean;
+        id: number;
+        library?: EscolaLms.HeadlessH5P.Models.H5PLibrary | null;
+        content?: EscolaLms.HeadlessH5P.Models.H5PContent | null;
+    }
+
+    export interface H5PTempFile {
+        id: number;
+        path: string;
+        nonce: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        content?: EscolaLms.HeadlessH5P.Models.H5PContent | null;
     }
 
     export interface H5PLibraryLanguage {
@@ -1180,9 +1268,8 @@ declare namespace EscolaLms.HeadlessH5P.Models {
         created_at: string | null;
         updated_at: string | null;
         user_id: number | null;
-        title: string;
         library_id: number;
-        parameters: string;
+        parameters: Array<any> | any;
         nonce: string;
         filtered: string | null;
         slug: string | null;
@@ -1193,38 +1280,14 @@ declare namespace EscolaLms.HeadlessH5P.Models {
         license: string | null;
         keywords: string | null;
         description: string | null;
+        uuid: string | null;
         user?: EscolaLms.Core.Models.User | null;
         library?: EscolaLms.HeadlessH5P.Models.H5PLibrary | null;
         libraries?: Array<EscolaLms.HeadlessH5P.Models.H5PContentLibrary> | null;
         libraries_count?: number | null;
-    }
-
-    export interface H5PTempFile {
-        id: number;
-        path: string;
-        nonce: string | null;
-        created_at: string | null;
-        updated_at: string | null;
-    }
-
-    export interface H5PLibraryDependency {
-        library_id: number;
-        required_library_id: number;
-        dependency_type: string;
-        id: number;
-        library?: EscolaLms.HeadlessH5P.Models.H5PLibrary | null;
-        required_library?: EscolaLms.HeadlessH5P.Models.H5PLibrary | null;
-    }
-
-    export interface H5PContentLibrary {
-        content_id: number;
-        library_id: number;
-        dependency_type: string;
-        weight: number;
-        drop_css: boolean;
-        id: number;
-        library?: EscolaLms.HeadlessH5P.Models.H5PLibrary | null;
-        content?: EscolaLms.HeadlessH5P.Models.H5PContent | null;
+        readonly title?: any;
+        readonly params?: any;
+        readonly metadata?: any;
     }
 
 }
@@ -1245,7 +1308,7 @@ declare namespace EscolaLms.ModelFields.Models {
         created_at: string | null;
         updated_at: string | null;
         name: string;
-        type: any;
+        type: string;
         rules: string | null;
         extra: string | null;
         default: string | null;
@@ -1256,6 +1319,19 @@ declare namespace EscolaLms.ModelFields.Models {
 }
 
 declare namespace EscolaLms.Notifications.Models {
+    export interface DatabaseNotification {
+        id: string;
+        type: string;
+        notifiable_type: string;
+        notifiable_id: number;
+        data: string;
+        read_at: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        event: string;
+        notifiable?: any | null;
+    }
+
     export interface User {
         id: number;
         first_name: string;
@@ -1292,19 +1368,6 @@ declare namespace EscolaLms.Notifications.Models {
         readonly name?: any;
         readonly email_verified?: boolean;
         readonly avatar_url?: string | null;
-    }
-
-    export interface DatabaseNotification {
-        id: string;
-        type: string;
-        notifiable_type: string;
-        notifiable_id: number;
-        data: string;
-        read_at: string | null;
-        created_at: string | null;
-        updated_at: string | null;
-        event: string;
-        notifiable?: any | null;
     }
 
 }
@@ -1422,15 +1485,6 @@ declare namespace EscolaLms.Permissions.Models {
 }
 
 declare namespace EscolaLms.Reports.Models {
-    export interface Report {
-        id: number;
-        created_at: string | null;
-        updated_at: string | null;
-        metric: string;
-        measurements?: Array<EscolaLms.Reports.Models.Measurement> | null;
-        measurements_count?: number | null;
-    }
-
     export interface Measurement {
         id: number;
         created_at: string | null;
@@ -1444,14 +1498,18 @@ declare namespace EscolaLms.Reports.Models {
         measurable?: any | null;
     }
 
+    export interface Report {
+        id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        metric: string;
+        measurements?: Array<EscolaLms.Reports.Models.Measurement> | null;
+        measurements_count?: number | null;
+    }
+
 }
 
 declare namespace EscolaLms.Settings.Models {
-    export interface Config {
-        id: number;
-        value: string;
-    }
-
     export interface Setting {
         id: number;
         key: string;
@@ -1460,10 +1518,15 @@ declare namespace EscolaLms.Settings.Models {
         public: boolean;
         enumerable: boolean;
         sort: number;
-        type: any;
+        type: string;
         created_at: string | null;
         updated_at: string | null;
         readonly data?: any;
+    }
+
+    export interface Config {
+        id: number;
+        value: string;
     }
 
 }
@@ -1483,6 +1546,7 @@ declare namespace EscolaLms.StationaryEvents.Models {
         image_path: string | null;
         short_desc: string | null;
         status: string | null;
+        agenda: string | null;
         users?: Array<EscolaLms.Auth.Models.User> | null;
         authors?: Array<EscolaLms.Auth.Models.User> | null;
         categories?: Array<EscolaLms.Categories.Models.Category> | null;
@@ -1545,16 +1609,6 @@ declare namespace EscolaLms.Templates.Models {
         readonly variable_class?: string | null;
     }
 
-    export interface TemplateSection {
-        id: number;
-        key: string;
-        content: string;
-        template_id: number;
-        created_at: string | null;
-        updated_at: string | null;
-        template?: EscolaLms.Templates.Models.Template | null;
-    }
-
     export interface Templatable {
         id: number;
         channel: string;
@@ -1566,6 +1620,16 @@ declare namespace EscolaLms.Templates.Models {
         updated_at: string | null;
         template?: EscolaLms.Templates.Models.Template | null;
         templatable?: any | null;
+    }
+
+    export interface TemplateSection {
+        id: number;
+        key: string;
+        content: string;
+        template_id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        template?: EscolaLms.Templates.Models.Template | null;
     }
 
 }
@@ -1580,6 +1644,7 @@ declare namespace EscolaLms.TemplatesPdf.Models {
         created_at: string | null;
         updated_at: string | null;
         title: string | null;
+        vars: string | null;
         user?: EscolaLms.Core.Models.User | null;
         template?: EscolaLms.Templates.Models.Template | null;
     }
@@ -1587,14 +1652,6 @@ declare namespace EscolaLms.TemplatesPdf.Models {
 }
 
 declare namespace EscolaLms.TopicTypes.Models.TopicContent {
-    export interface Cmi5Au {
-        id: number;
-        value: string;
-        created_at: string | null;
-        updated_at: string | null;
-        topic?: EscolaLms.Courses.Models.Topic | null;
-    }
-
     export interface PDF {
         id: number;
         created_at: string | null;
@@ -1604,7 +1661,15 @@ declare namespace EscolaLms.TopicTypes.Models.TopicContent {
         readonly url?: string;
     }
 
-    export interface RichText {
+    export interface ScormSco {
+        id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        value: string;
+        topic?: EscolaLms.Courses.Models.Topic | null;
+    }
+
+    export interface OEmbed {
         id: number;
         created_at: string | null;
         updated_at: string | null;
@@ -1625,11 +1690,27 @@ declare namespace EscolaLms.TopicTypes.Models.TopicContent {
         readonly url?: string;
     }
 
-    export interface OEmbed {
+    export interface Cmi5Au {
+        id: number;
+        value: string;
+        created_at: string | null;
+        updated_at: string | null;
+        topic?: EscolaLms.Courses.Models.Topic | null;
+    }
+
+    export interface RichText {
         id: number;
         created_at: string | null;
         updated_at: string | null;
         value: string;
+        topic?: EscolaLms.Courses.Models.Topic | null;
+    }
+
+    export interface H5P {
+        id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        value: number;
         topic?: EscolaLms.Courses.Models.Topic | null;
     }
 
@@ -1643,14 +1724,6 @@ declare namespace EscolaLms.TopicTypes.Models.TopicContent {
         readonly url?: string;
     }
 
-    export interface H5P {
-        id: number;
-        created_at: string | null;
-        updated_at: string | null;
-        value: number;
-        topic?: EscolaLms.Courses.Models.Topic | null;
-    }
-
     export interface Image {
         id: number;
         created_at: string | null;
@@ -1662,37 +1735,9 @@ declare namespace EscolaLms.TopicTypes.Models.TopicContent {
         readonly url?: string;
     }
 
-    export interface ScormSco {
-        id: number;
-        created_at: string | null;
-        updated_at: string | null;
-        value: string;
-        topic?: EscolaLms.Courses.Models.Topic | null;
-    }
-
 }
 
 declare namespace EscolaLms.Questionnaire.Models {
-    export interface QuestionnaireModelType {
-        id: number;
-        title: string;
-        model_class: string;
-        created_at: string | null;
-        updated_at: string | null;
-    }
-
-    export interface Questionnaire {
-        id: number;
-        title: string;
-        active: boolean;
-        created_at: string | null;
-        updated_at: string | null;
-        questions?: Array<EscolaLms.Questionnaire.Models.Question> | null;
-        questionnaire_models?: Array<EscolaLms.Questionnaire.Models.QuestionnaireModel> | null;
-        questions_count?: number | null;
-        questionnaire_models_count?: number | null;
-    }
-
     export interface Question {
         id: number;
         questionnaire_id: number;
@@ -1720,6 +1765,26 @@ declare namespace EscolaLms.Questionnaire.Models {
         question?: EscolaLms.Questionnaire.Models.Question | null;
         user?: EscolaLms.Core.Models.User | null;
         questionnaire_model?: EscolaLms.Questionnaire.Models.QuestionnaireModel | null;
+    }
+
+    export interface QuestionnaireModelType {
+        id: number;
+        title: string;
+        model_class: string;
+        created_at: string | null;
+        updated_at: string | null;
+    }
+
+    export interface Questionnaire {
+        id: number;
+        title: string;
+        active: boolean;
+        created_at: string | null;
+        updated_at: string | null;
+        questions?: Array<EscolaLms.Questionnaire.Models.Question> | null;
+        questionnaire_models?: Array<EscolaLms.Questionnaire.Models.QuestionnaireModel> | null;
+        questions_count?: number | null;
+        questionnaire_models_count?: number | null;
     }
 
     export interface QuestionnaireModel {
@@ -1752,15 +1817,37 @@ declare namespace EscolaLms.Video.Models {
 }
 
 declare namespace EscolaLms.Vouchers.Models {
-    export interface CouponCategory {
+    export interface OrderItem {
+        id: number;
+        order_id: number;
+        buyable_type: string;
+        buyable_id: number;
+        quantity: number;
+        options: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        price: number | null;
+        extra_fees: number;
+        tax_rate: number;
+        name: string | null;
+        order?: EscolaLms.Vouchers.Models.Order | null;
+        buyable?: any | null;
+        readonly description?: string | null;
+        readonly subtotal?: number;
+        readonly total?: number;
+        readonly tax?: number;
+        readonly total_with_tax?: number;
+    }
+
+    export interface CouponProduct {
         id: number;
         coupon_id: number;
-        category_id: number;
         excluded: boolean;
         created_at: string | null;
         updated_at: string | null;
+        product_id: number;
         coupon?: EscolaLms.Vouchers.Models.Coupon | null;
-        category?: EscolaLms.Vouchers.Models.Category | null;
+        product?: EscolaLms.Cart.Models.Product | null;
     }
 
     export interface CartItem {
@@ -1776,12 +1863,37 @@ declare namespace EscolaLms.Vouchers.Models {
         buyable?: any | null;
         readonly subtotal?: any;
         readonly price?: any;
+        readonly base_price?: any;
         readonly discount_subtotal?: number;
         readonly discount?: number;
         readonly total?: any;
         readonly description?: any;
         readonly extra_fees?: any;
         readonly identifier?: string;
+    }
+
+    export interface Category {
+        id: number;
+        name: string;
+        slug: string | null;
+        is_active: boolean;
+        parent_id: number | null;
+        icon: string | null;
+        icon_class: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        coupons?: Array<EscolaLms.Vouchers.Models.Coupon> | null;
+        products?: Array<EscolaLms.Cart.Models.Product> | null;
+        parent?: EscolaLms.Categories.Models.Category | null;
+        children?: Array<EscolaLms.Categories.Models.Category> | null;
+        users?: Array<App.Models.User> | null;
+        courses?: Array<EscolaLms.Courses.Models.Course> | null;
+        coupons_count?: number | null;
+        products_count?: number | null;
+        children_count?: number | null;
+        users_count?: number | null;
+        courses_count?: number | null;
+        readonly name_with_breadcrumbs?: string;
     }
 
     export interface Coupon {
@@ -1821,40 +1933,6 @@ declare namespace EscolaLms.Vouchers.Models {
         readonly value_string?: string;
     }
 
-    export interface CouponUser {
-        id: number;
-        coupon_id: number;
-        user_id: number;
-        created_at: string | null;
-        updated_at: string | null;
-        coupon?: EscolaLms.Vouchers.Models.Coupon | null;
-        user?: EscolaLms.Vouchers.Models.User | null;
-    }
-
-    export interface Category {
-        id: number;
-        name: string;
-        slug: string | null;
-        is_active: boolean;
-        parent_id: number | null;
-        icon: string | null;
-        icon_class: string | null;
-        created_at: string | null;
-        updated_at: string | null;
-        coupons?: Array<EscolaLms.Vouchers.Models.Coupon> | null;
-        products?: Array<EscolaLms.Cart.Models.Product> | null;
-        parent?: EscolaLms.Categories.Models.Category | null;
-        children?: Array<EscolaLms.Categories.Models.Category> | null;
-        users?: Array<App.Models.User> | null;
-        courses?: Array<EscolaLms.Courses.Models.Course> | null;
-        coupons_count?: number | null;
-        products_count?: number | null;
-        children_count?: number | null;
-        users_count?: number | null;
-        courses_count?: number | null;
-        readonly name_with_breadcrumbs?: string;
-    }
-
     export interface Order {
         id: number;
         user_id: number | null;
@@ -1885,26 +1963,66 @@ declare namespace EscolaLms.Vouchers.Models {
         readonly status_name?: string;
     }
 
-    export interface OrderItem {
+    export interface Product {
         id: number;
-        order_id: number;
-        buyable_type: string;
-        buyable_id: number;
-        quantity: number;
-        options: string | null;
+        name: string;
+        type: string;
+        price: number;
+        price_old: number | null;
+        tax_rate: number;
+        extra_fees: number;
+        purchasable: boolean;
+        teaser_url: string | null;
+        description: string | null;
+        poster_url: string | null;
+        duration: string | null;
+        limit_per_user: number | null;
+        limit_total: number | null;
         created_at: string | null;
         updated_at: string | null;
-        price: number | null;
-        extra_fees: number;
-        tax_rate: number;
-        name: string | null;
-        order?: EscolaLms.Vouchers.Models.Order | null;
-        buyable?: any | null;
-        readonly description?: string | null;
+        coupons?: Array<EscolaLms.Vouchers.Models.Coupon> | null;
+        productables?: Array<EscolaLms.Cart.Models.ProductProductable> | null;
+        users?: Array<EscolaLms.Cart.Models.User> | null;
+        tags?: Array<EscolaLms.Tags.Models.Tag> | null;
+        categories?: Array<EscolaLms.Cart.Models.Category> | null;
+        related_products?: Array<EscolaLms.Cart.Models.Product> | null;
+        coupons_count?: number | null;
+        productables_count?: number | null;
+        users_count?: number | null;
+        tags_count?: number | null;
+        categories_count?: number | null;
+        related_products_count?: number | null;
+        readonly poster_url_or_productable_thumbnail?: string | null;
+        readonly poster_absolute_url?: string | null;
+        readonly authors?: any;
+        readonly calculated_duration?: number;
+    }
+
+    export interface CouponUser {
+        id: number;
+        coupon_id: number;
+        user_id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        coupon?: EscolaLms.Vouchers.Models.Coupon | null;
+        user?: EscolaLms.Vouchers.Models.User | null;
+    }
+
+    export interface Cart {
+        id: number;
+        user_id: number | null;
+        created_at: string | null;
+        updated_at: string | null;
+        coupon_id: number | null;
+        coupon?: EscolaLms.Vouchers.Models.Coupon | null;
+        items?: Array<EscolaLms.Vouchers.Models.CartItem> | null;
+        user?: EscolaLms.Cart.Models.User | null;
+        items_count?: number | null;
+        readonly cart_manager?: any;
+        readonly additional_discount?: number;
+        readonly total_pre_discount?: number;
         readonly subtotal?: number;
         readonly total?: number;
-        readonly tax?: number;
-        readonly total_with_tax?: number;
     }
 
     export interface User {
@@ -1960,66 +2078,15 @@ declare namespace EscolaLms.Vouchers.Models {
         readonly avatar_url?: string | null;
     }
 
-    export interface Product {
-        id: number;
-        name: string;
-        type: string;
-        price: number;
-        price_old: number | null;
-        tax_rate: number;
-        extra_fees: number;
-        purchasable: boolean;
-        teaser_url: string | null;
-        description: string | null;
-        poster_url: string | null;
-        duration: string | null;
-        limit_per_user: number | null;
-        limit_total: number | null;
-        created_at: string | null;
-        updated_at: string | null;
-        coupons?: Array<EscolaLms.Vouchers.Models.Coupon> | null;
-        productables?: Array<EscolaLms.Cart.Models.ProductProductable> | null;
-        users?: Array<EscolaLms.Cart.Models.User> | null;
-        tags?: Array<EscolaLms.Tags.Models.Tag> | null;
-        categories?: Array<EscolaLms.Cart.Models.Category> | null;
-        related_products?: Array<EscolaLms.Cart.Models.Product> | null;
-        coupons_count?: number | null;
-        productables_count?: number | null;
-        users_count?: number | null;
-        tags_count?: number | null;
-        categories_count?: number | null;
-        related_products_count?: number | null;
-        readonly poster_absolute_url?: string | null;
-        readonly authors?: any;
-        readonly calculated_duration?: number;
-    }
-
-    export interface CouponProduct {
+    export interface CouponCategory {
         id: number;
         coupon_id: number;
+        category_id: number;
         excluded: boolean;
         created_at: string | null;
         updated_at: string | null;
-        product_id: number;
         coupon?: EscolaLms.Vouchers.Models.Coupon | null;
-        product?: EscolaLms.Cart.Models.Product | null;
-    }
-
-    export interface Cart {
-        id: number;
-        user_id: number | null;
-        created_at: string | null;
-        updated_at: string | null;
-        coupon_id: number | null;
-        coupon?: EscolaLms.Vouchers.Models.Coupon | null;
-        items?: Array<EscolaLms.Vouchers.Models.CartItem> | null;
-        user?: EscolaLms.Cart.Models.User | null;
-        items_count?: number | null;
-        readonly cart_manager?: any;
-        readonly additional_discount?: number;
-        readonly total_pre_discount?: number;
-        readonly subtotal?: number;
-        readonly total?: number;
+        category?: EscolaLms.Vouchers.Models.Category | null;
     }
 
 }
@@ -2084,32 +2151,29 @@ declare namespace EscolaLms.Tracker.Models {
 }
 
 declare namespace EscolaLms.Auth.Http.Requests {
-    export interface RefreshTokenRequest {}
+    export interface MyProfileRequest {}
 
-    export interface UserSettingsUpdateRequest {}
-
-    export interface SocialAuthRequest {
-        provider: string;
-        return_url?: string | null;
+    export interface ProfileUpdatePasswordRequest {
+        current_password: string;
+        new_password: string;
     }
 
-    export interface ProfileUpdateAuthDataRequest {
-        email: string;
-    }
-
-    export interface UploadAvatarRequest {
-        avatar: Blob | File;
+    export interface ProfileUpdateRequest {
+        first_name?: string;
+        last_name?: string;
+        age?: number;
+        gender?: any;
     }
 
     export interface UpdateInterests {
         interests: Array<number>;
     }
 
-    export interface LoginRequest {
+    export interface ProfileUpdateAuthDataRequest {
         email: string;
-        password: string;
-        remember_me?: boolean;
     }
+
+    export interface RefreshTokenRequest {}
 
     export interface ResetPasswordRequest {
         email: string;
@@ -2123,6 +2187,17 @@ declare namespace EscolaLms.Auth.Http.Requests {
     }
 
     export interface LogoutRequest {}
+
+    export interface CompleteSocialDataRequest {
+        email: string;
+        token: string;
+        return_url?: string;
+    }
+
+    export interface SocialAuthRequest {
+        provider: string;
+        return_url?: string | null;
+    }
 
     export interface RegisterRequest {
         first_name: string;
@@ -2138,61 +2213,40 @@ declare namespace EscolaLms.Auth.Http.Requests {
         }>;
     }
 
+    export interface UploadAvatarRequest {
+        avatar: Blob | File;
+    }
+
     export interface ForgotPasswordRequest {
         email: string;
         return_url: string;
     }
 
-    export interface MyProfileRequest {}
+    export interface UserSettingsUpdateRequest {}
 
-    export interface ProfileUpdatePasswordRequest {
-        current_password: string;
-        new_password: string;
-    }
-
-    export interface ProfileUpdateRequest {
-        first_name?: string;
-        last_name?: string;
-        age?: number;
-        gender?: any;
+    export interface LoginRequest {
+        email: string;
+        password: string;
+        remember_me?: boolean;
     }
 
 }
 
 declare namespace EscolaLms.Auth.Http.Requests.Admin {
-    export interface UserSettingsListRequest {}
+    export interface UserInterestsUpdateRequest {
+        interests: Array<number>;
+    }
 
     export interface UserGroupDeleteRequest {}
-
-    export interface UserSettingsUpdateRequest {
-        settings: Array<{
-            key: string;
-            value: string | null;
-        }>;
-    }
-
-    export interface UserGetRequest {}
-
-    export interface UserGroupUpdateRequest {
-        name: string;
-        parent_id?: number | null;
-        registerable?: boolean;
-    }
-
-    export interface UserGroupCreateRequest {
-        name: string;
-        parent_id?: number | null;
-        registerable?: boolean;
-    }
 
     export interface UserGroupListRequest {
         search?: string;
         parent_id?: number;
     }
 
-    export interface UserInterestDeleteRequest {}
+    export interface UserGroupMemberAddRequest {}
 
-    export interface UserGroupGetRequest {}
+    export interface UserInterestDeleteRequest {}
 
     export interface UserCreateRequest {
         first_name: string;
@@ -2200,6 +2254,7 @@ declare namespace EscolaLms.Auth.Http.Requests.Admin {
         email: string;
         verified?: boolean;
         password: string;
+        return_url: string;
         roles?: any;
         groups?: Array<number>;
         settings?: Array<{
@@ -2208,23 +2263,45 @@ declare namespace EscolaLms.Auth.Http.Requests.Admin {
         }>;
     }
 
-    export interface UserInterestsListRequest {}
-
-    export interface UserInterestsUpdateRequest {
-        interests: Array<number>;
+    export interface UserGroupCreateRequest {
+        name: string;
+        parent_id?: number | null;
+        registerable?: boolean;
     }
 
-    export interface UserGroupMemberAddRequest {}
+    export interface UserInterestsListRequest {}
 
-    export interface UserDeleteRequest {}
+    export interface UserGetRequest {}
+
+    export interface UserGroupGetRequest {}
+
+    export interface UsersListRequest {
+        from?: string | null;
+        to?: string | null;
+    }
+
+    export interface UserSettingsListRequest {}
+
+    export interface UserGroupUpdateRequest {
+        name: string;
+        parent_id?: number | null;
+        registerable?: boolean;
+    }
 
     export interface UserInterestAddRequest {}
 
-    export interface UserAvatarDeleteRequest {}
-
-    export interface UserAvatarUploadRequest {}
+    export interface UserDeleteRequest {}
 
     export interface UserGroupMemberRemoveRequest {}
+
+    export interface UserSettingsUpdateRequest {
+        settings: Array<{
+            key: string;
+            value: string | null;
+        }>;
+    }
+
+    export interface UserAvatarUploadRequest {}
 
     export interface UserUpdateRequest {
         first_name?: string;
@@ -2235,44 +2312,22 @@ declare namespace EscolaLms.Auth.Http.Requests.Admin {
         roles?: any;
     }
 
-    export interface UsersListRequest {
-        from?: string | null;
-        to?: string | null;
-    }
+    export interface UserAvatarDeleteRequest {}
 
-    export interface UserSettingsListRequest {}
+    export interface UserInterestsUpdateRequest {
+        interests: Array<number>;
+    }
 
     export interface UserGroupDeleteRequest {}
-
-    export interface UserSettingsUpdateRequest {
-        settings: Array<{
-            key: string;
-            value: string | null;
-        }>;
-    }
-
-    export interface UserGetRequest {}
-
-    export interface UserGroupUpdateRequest {
-        name: string;
-        parent_id?: number | null;
-        registerable?: boolean;
-    }
-
-    export interface UserGroupCreateRequest {
-        name: string;
-        parent_id?: number | null;
-        registerable?: boolean;
-    }
 
     export interface UserGroupListRequest {
         search?: string;
         parent_id?: number;
     }
 
-    export interface UserInterestDeleteRequest {}
+    export interface UserGroupMemberAddRequest {}
 
-    export interface UserGroupGetRequest {}
+    export interface UserInterestDeleteRequest {}
 
     export interface UserCreateRequest {
         first_name: string;
@@ -2280,6 +2335,7 @@ declare namespace EscolaLms.Auth.Http.Requests.Admin {
         email: string;
         verified?: boolean;
         password: string;
+        return_url: string;
         roles?: any;
         groups?: Array<number>;
         settings?: Array<{
@@ -2288,23 +2344,45 @@ declare namespace EscolaLms.Auth.Http.Requests.Admin {
         }>;
     }
 
-    export interface UserInterestsListRequest {}
-
-    export interface UserInterestsUpdateRequest {
-        interests: Array<number>;
+    export interface UserGroupCreateRequest {
+        name: string;
+        parent_id?: number | null;
+        registerable?: boolean;
     }
 
-    export interface UserGroupMemberAddRequest {}
+    export interface UserInterestsListRequest {}
 
-    export interface UserDeleteRequest {}
+    export interface UserGetRequest {}
+
+    export interface UserGroupGetRequest {}
+
+    export interface UsersListRequest {
+        from?: string | null;
+        to?: string | null;
+    }
+
+    export interface UserSettingsListRequest {}
+
+    export interface UserGroupUpdateRequest {
+        name: string;
+        parent_id?: number | null;
+        registerable?: boolean;
+    }
 
     export interface UserInterestAddRequest {}
 
-    export interface UserAvatarDeleteRequest {}
-
-    export interface UserAvatarUploadRequest {}
+    export interface UserDeleteRequest {}
 
     export interface UserGroupMemberRemoveRequest {}
+
+    export interface UserSettingsUpdateRequest {
+        settings: Array<{
+            key: string;
+            value: string | null;
+        }>;
+    }
+
+    export interface UserAvatarUploadRequest {}
 
     export interface UserUpdateRequest {
         first_name?: string;
@@ -2315,22 +2393,28 @@ declare namespace EscolaLms.Auth.Http.Requests.Admin {
         roles?: any;
     }
 
-    export interface UsersListRequest {
-        from?: string | null;
-        to?: string | null;
-    }
+    export interface UserAvatarDeleteRequest {}
 
 }
 
 declare namespace EscolaLms.Cart.Http.Requests {
-    export interface OrderSearchRequest {
-        date_from?: string;
-        date_to?: string;
-        product_id?: number;
+    export interface ProductSearchRequest {
         productable_id?: number;
         productable_type?: string;
+        name?: string;
+        free?: boolean;
         per_page?: number;
         page?: number;
+        tags?: Array<string>;
+    }
+
+    export interface ProductSetQuantityInCartRequest {
+        id: number;
+        quantity?: number;
+    }
+
+    export interface OrderViewRequest {
+        id: number;
     }
 
     export interface PaymentRequest {
@@ -2345,6 +2429,14 @@ declare namespace EscolaLms.Cart.Http.Requests {
         client_taxid?: string;
     }
 
+    export interface ProductReadRequest {
+        id: number;
+    }
+
+    export interface CartItemRemoveFromCartRequest {
+        id: number;
+    }
+
     export interface AddMissingProductsRequest {
         products?: Array<number>;
     }
@@ -2354,31 +2446,14 @@ declare namespace EscolaLms.Cart.Http.Requests {
         productable_type: string;
     }
 
-    export interface ProductSearchRequest {
+    export interface OrderSearchRequest {
+        date_from?: string;
+        date_to?: string;
+        product_id?: number;
         productable_id?: number;
         productable_type?: string;
-        name?: string;
-        free?: boolean;
         per_page?: number;
         page?: number;
-        tags?: Array<string>;
-    }
-
-    export interface OrderViewRequest {
-        id: number;
-    }
-
-    export interface CartItemRemoveFromCartRequest {
-        id: number;
-    }
-
-    export interface ProductSetQuantityInCartRequest {
-        id: number;
-        quantity?: number;
-    }
-
-    export interface ProductReadRequest {
-        id: number;
     }
 
     export interface ProductRemoveFromCartRequest {
@@ -2388,31 +2463,30 @@ declare namespace EscolaLms.Cart.Http.Requests {
 }
 
 declare namespace EscolaLms.Cart.Http.Requests.Admin {
+    export interface ProductableProductRequest {
+        productable_type: string;
+    }
+
+    export interface ProductAttachRequest {
+        user_id: number;
+    }
+
+    export interface ProductableRegisteredListRequest {}
+
     export interface ProductDeleteRequest {
         id: number;
     }
 
-    export interface ProductManuallyTriggerRequest {
-        id: number;
-    }
-
-    export interface OrderSearchRequest {
-        date_from?: string;
-        date_to?: string;
-        user_id?: number;
-        product_id?: number;
+    export interface ProductSearchRequest {
         productable_id?: number;
         productable_type?: string;
+        name?: string;
+        free?: boolean;
+        purchasable?: boolean;
         per_page?: number;
         page?: number;
+        tags?: Array<string>;
     }
-
-    export interface ProductableAttachRequest {
-        productable_type: string;
-        user_id: number;
-    }
-
-    export interface ProductableListRequest {}
 
     export interface ProductCreateRequest {
         name: string;
@@ -2435,6 +2509,30 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
         categories?: Array<number>;
         tags?: Array<string>;
         related_products?: Array<number>;
+    }
+
+    export interface ProductableListRequest {}
+
+    export interface ProductDetachRequest {
+        user_id: number;
+    }
+
+    export interface ProductReadRequest {
+        id: number;
+    }
+
+    export interface ProductManuallyTriggerRequest {
+        id: number;
+    }
+
+    export interface ProductableAttachRequest {
+        productable_type: string;
+        user_id: number;
+    }
+
+    export interface ProductableDetachRequest {
+        productable_type: string;
+        user_id: number;
     }
 
     export interface ProductUpdateRequest {
@@ -2461,48 +2559,6 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
         related_products?: Array<number>;
     }
 
-    export interface ProductSearchRequest {
-        productable_id?: number;
-        productable_type?: string;
-        name?: string;
-        free?: boolean;
-        purchasable?: boolean;
-        per_page?: number;
-        page?: number;
-        tags?: Array<string>;
-    }
-
-    export interface ProductableProductRequest {
-        productable_type: string;
-    }
-
-    export interface ProductReadRequest {
-        id: number;
-    }
-
-    export interface ProductableRegisteredListRequest {}
-
-    export interface ProductDetachRequest {
-        user_id: number;
-    }
-
-    export interface ProductableDetachRequest {
-        productable_type: string;
-        user_id: number;
-    }
-
-    export interface ProductAttachRequest {
-        user_id: number;
-    }
-
-    export interface ProductDeleteRequest {
-        id: number;
-    }
-
-    export interface ProductManuallyTriggerRequest {
-        id: number;
-    }
-
     export interface OrderSearchRequest {
         date_from?: string;
         date_to?: string;
@@ -2514,12 +2570,30 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
         page?: number;
     }
 
-    export interface ProductableAttachRequest {
+    export interface ProductableProductRequest {
         productable_type: string;
+    }
+
+    export interface ProductAttachRequest {
         user_id: number;
     }
 
-    export interface ProductableListRequest {}
+    export interface ProductableRegisteredListRequest {}
+
+    export interface ProductDeleteRequest {
+        id: number;
+    }
+
+    export interface ProductSearchRequest {
+        productable_id?: number;
+        productable_type?: string;
+        name?: string;
+        free?: boolean;
+        purchasable?: boolean;
+        per_page?: number;
+        page?: number;
+        tags?: Array<string>;
+    }
 
     export interface ProductCreateRequest {
         name: string;
@@ -2542,6 +2616,30 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
         categories?: Array<number>;
         tags?: Array<string>;
         related_products?: Array<number>;
+    }
+
+    export interface ProductableListRequest {}
+
+    export interface ProductDetachRequest {
+        user_id: number;
+    }
+
+    export interface ProductReadRequest {
+        id: number;
+    }
+
+    export interface ProductManuallyTriggerRequest {
+        id: number;
+    }
+
+    export interface ProductableAttachRequest {
+        productable_type: string;
+        user_id: number;
+    }
+
+    export interface ProductableDetachRequest {
+        productable_type: string;
+        user_id: number;
     }
 
     export interface ProductUpdateRequest {
@@ -2568,58 +2666,35 @@ declare namespace EscolaLms.Cart.Http.Requests.Admin {
         related_products?: Array<number>;
     }
 
-    export interface ProductSearchRequest {
+    export interface OrderSearchRequest {
+        date_from?: string;
+        date_to?: string;
+        user_id?: number;
+        product_id?: number;
         productable_id?: number;
         productable_type?: string;
-        name?: string;
-        free?: boolean;
-        purchasable?: boolean;
         per_page?: number;
         page?: number;
-        tags?: Array<string>;
-    }
-
-    export interface ProductableProductRequest {
-        productable_type: string;
-    }
-
-    export interface ProductReadRequest {
-        id: number;
-    }
-
-    export interface ProductableRegisteredListRequest {}
-
-    export interface ProductDetachRequest {
-        user_id: number;
-    }
-
-    export interface ProductableDetachRequest {
-        productable_type: string;
-        user_id: number;
-    }
-
-    export interface ProductAttachRequest {
-        user_id: number;
     }
 
 }
 
 declare namespace EscolaLms.Categories.Http.Requests {
-    export interface CategoryCreateRequest {
-        name: string;
-        icon?: Blob | File | null;
-        icon_class?: string | null;
-    }
+    export interface CategoryReadRequest {}
 
     export interface CategoryListRequest {}
-
-    export interface CategoryReadRequest {}
 
     export interface CategoryDeleteRequest {}
 
     export interface CategoryUpdateRequest {
         name?: string;
         icon?: any;
+        icon_class?: string | null;
+    }
+
+    export interface CategoryCreateRequest {
+        name: string;
+        icon?: Blob | File | null;
         icon_class?: string | null;
     }
 
@@ -2661,22 +2736,45 @@ declare namespace EscolaLms.Webinar.Http.Requests {
 }
 
 declare namespace EscolaLms.Consultations.Http.Requests {
+    export interface ListAPIConsultationsRequest {
+        name?: string;
+        status?: Array<string>;
+    }
+
     export interface ScheduleConsultationRequest {
         date_from?: string;
         date_to?: string;
         status?: string;
     }
 
+    export interface ShowConsultationRequest {}
+
     export interface ReportTermConsultationRequest {
         term: string;
     }
 
-    export interface ListConsultationsRequest {
-        name?: string;
-        status?: Array<string>;
+    export interface StoreConsultationRequest {
+        name: string;
+        status: string;
+        description: string;
+        duration?: string | null;
+        image?: Blob | File | null;
+        author_id: number;
+        active_from?: string;
+        active_to?: string;
+        proposed_dates?: Array<string>;
+        categories?: Array<number>;
     }
 
-    export interface ShowConsultationRequest {}
+    export interface ScheduleConsultationAPIRequest {
+        date_from?: string;
+        date_to?: string;
+        status?: string;
+    }
+
+    export interface ChangeTermConsultationRequest {
+        executed_at?: string;
+    }
 
     export interface UpdateConsultationRequest {
         name?: string;
@@ -2693,30 +2791,7 @@ declare namespace EscolaLms.Consultations.Http.Requests {
 
     export interface ShowAPIConsultationRequest {}
 
-    export interface StoreConsultationRequest {
-        name: string;
-        status: string;
-        description: string;
-        duration?: string | null;
-        image?: Blob | File | null;
-        author_id: number;
-        active_from?: string;
-        active_to?: string;
-        proposed_dates?: Array<string>;
-        categories?: Array<number>;
-    }
-
-    export interface ChangeTermConsultationRequest {
-        executed_at?: string;
-    }
-
-    export interface ScheduleConsultationAPIRequest {
-        date_from?: string;
-        date_to?: string;
-        status?: string;
-    }
-
-    export interface ListAPIConsultationsRequest {
+    export interface ListConsultationsRequest {
         name?: string;
         status?: Array<string>;
     }
@@ -2724,26 +2799,7 @@ declare namespace EscolaLms.Consultations.Http.Requests {
 }
 
 declare namespace EscolaLms.Courses.Http.Requests {
-    export interface GetCourseCurriculumAPIRequest {}
-
-    export interface UploadTopicResourceAPIRequest {}
-
-    export interface GetTopicAPIRequest {}
-
-    export interface RenameTopicResourceAPIRequest {
-        name: string;
-    }
-
-    export interface DeleteTopicResourceAPIRequest {}
-
     export interface DeleteTopicAPIRequest {}
-
-    export interface CloneLessonAPIRequest {}
-
-    export interface SetAccessAPIRequest {
-        groups?: Array<number>;
-        users?: Array<number>;
-    }
 
     export interface CreateCourseAPIRequest {
         title: string;
@@ -2766,8 +2822,13 @@ declare namespace EscolaLms.Courses.Http.Requests {
         findable?: boolean;
         target_group?: string | null;
         teaser_url?: string | null;
+        public?: boolean | null;
         authors?: Array<number> | null;
     }
+
+    export interface DeleteCourseAPIRequest {}
+
+    export interface ListTopicResourceAPIRequest {}
 
     export interface DeleteLessonAPIRequest {}
 
@@ -2779,32 +2840,28 @@ declare namespace EscolaLms.Courses.Http.Requests {
         active?: boolean;
     }
 
-    export interface CreateTopicAPIRequest {
-        title?: string;
-        summary?: string;
-        introduction?: string;
-        description?: string;
-        lesson_id: number;
-        topicable_type?: string;
-        order?: number;
-        active?: boolean;
-        preview?: boolean;
-        can_skip?: boolean;
-        json?: string;
+    export interface CourseProgressAPIRequest {
+        progress?: Array<{
+            topic_id?: number;
+            status?: number;
+        }>;
     }
 
-    export interface ListAccessAPIRequest {}
+    export interface DeleteTopicResourceAPIRequest {}
 
-    export interface AddAccessAPIRequest {
-        groups?: Array<number>;
-        users?: Array<number>;
+    export interface UploadTopicResourceAPIRequest {}
+
+    export interface GetCourseCurriculumAPIRequest {}
+
+    export interface RenameTopicResourceAPIRequest {
+        name: string;
     }
 
-    export interface AssignAuthorApiRequest {}
+    export interface GetLessonAPIRequest {}
 
-    export interface CloneTopicAPIRequest {}
+    export interface GetTopicAPIRequest {}
 
-    export interface DeleteCourseAPIRequest {}
+    export interface CloneLessonAPIRequest {}
 
     export interface UpdateCourseAPIRequest {
         title?: string;
@@ -2827,8 +2884,39 @@ declare namespace EscolaLms.Courses.Http.Requests {
         findable?: boolean;
         target_group?: string | null;
         teaser_url?: string | null;
+        public?: boolean | null;
         authors?: Array<number> | null;
     }
+
+    export interface ListCourseAPIRequest {}
+
+    export interface GetCourseAPIRequest {}
+
+    export interface AssignAuthorApiRequest {}
+
+    export interface CreateTopicAPIRequest {
+        title?: string;
+        summary?: string;
+        introduction?: string;
+        description?: string;
+        lesson_id: number;
+        topicable_type?: string;
+        order?: number;
+        active?: boolean;
+        preview?: boolean;
+        can_skip?: boolean;
+        json?: string;
+    }
+
+    export interface CreateLessonAPIRequest {
+        title: string;
+        duration?: string | null;
+        order: number;
+        summary?: string | null;
+        active?: boolean;
+    }
+
+    export interface CloneTopicAPIRequest {}
 
     export interface UpdateTopicAPIRequest {
         title?: string;
@@ -2844,25 +2932,6 @@ declare namespace EscolaLms.Courses.Http.Requests {
         json?: string;
     }
 
-    export interface ListTopicResourceAPIRequest {}
-
-    export interface GetCourseAPIRequest {}
-
-    export interface CreateLessonAPIRequest {
-        title: string;
-        duration?: string | null;
-        order: number;
-        summary?: string | null;
-        active?: boolean;
-    }
-
-    export interface RemoveAccessAPIRequest {
-        groups?: Array<number>;
-        users?: Array<number>;
-    }
-
-    export interface GetLessonAPIRequest {}
-
     export interface SortAPIRequest {
         course_id: number;
         orders: Array<{
@@ -2871,25 +2940,16 @@ declare namespace EscolaLms.Courses.Http.Requests {
         }>;
     }
 
-    export interface ListCourseAPIRequest {}
-
-    export interface CourseProgressAPIRequest {
-        progress?: Array<{
-            topic_id?: number;
-            status?: number;
-        }>;
-    }
-
 }
 
 declare namespace EscolaLms.CoursesImportExport.Http.Requests {
-    export interface GetCourseExportAPIRequest {}
+    export interface CloneCourseAPIRequest {}
 
     export interface CourseImportAPIRequest {
         file: Blob | File;
     }
 
-    export interface CloneCourseAPIRequest {}
+    export interface GetCourseExportAPIRequest {}
 
 }
 
@@ -2912,6 +2972,15 @@ declare namespace EscolaLms.Files.Http.Requests {
         destination_url: string;
     }
 
+    export interface FileFindByNameRequest {
+        page?: number | null;
+        perPage?: number | null;
+    }
+
+    export interface FileUploadRequest {
+        file: Array<Blob | File>;
+    }
+
     export interface FileListingRequest {
         page?: number | null;
         perPage?: number | null;
@@ -2921,17 +2990,33 @@ declare namespace EscolaLms.Files.Http.Requests {
         url: string;
     }
 
-    export interface FileFindByNameRequest {
-        page?: number | null;
-        perPage?: number | null;
-    }
-
-    export interface FileUploadRequest {}
-
 }
 
 declare namespace EscolaLms.HeadlessH5P.Http.Requests {
-    export interface ContentDeleteRequest {}
+    export interface FilesStoreRequest {
+        field: string;
+        contentId: string;
+    }
+
+    export interface LibraryInstallRequest {}
+
+    export interface LibraryUploadRequest {}
+
+    export interface ContentCreateRequest {
+        library: string;
+        params: string;
+        nonce: string;
+    }
+
+    export interface LibraryStoreRequest {}
+
+    export interface LibraryDeleteRequest {}
+
+    export interface ContentUpdateRequest {
+        library: string;
+        params: string;
+        nonce: string;
+    }
 
     export interface ContentListRequest {
         title?: string | null;
@@ -2940,23 +3025,13 @@ declare namespace EscolaLms.HeadlessH5P.Http.Requests {
 
     export interface ContentReadRequest {}
 
+    export interface LibraryFilterRequest {}
+
+    export interface AdminContentReadRequest {}
+
     export interface LibraryListRequest {}
 
-    export interface ContentStoreRequest {
-        title: string;
-        library: string;
-        params: string;
-        nonce: string;
-    }
-
-    export interface LibraryStoreRequest {}
-
-    export interface FilesStoreRequest {
-        field: string;
-        contentId: string;
-    }
-
-    export interface LibraryDeleteRequest {}
+    export interface ContentDeleteRequest {}
 
 }
 
@@ -2979,11 +3054,18 @@ declare namespace EscolaLms.ModelFields.Http.Requests {
 }
 
 declare namespace EscolaLms.Notifications.Http.Requests {
+    export interface NotificationEventsRequest {}
+
+    export interface NotificationsRequest {
+        event?: string | null;
+        include_read?: boolean;
+        date_from?: string;
+        date_to?: string;
+    }
+
     export interface NotificationReadRequest {
         notification: string;
     }
-
-    export interface NotificationEventsRequest {}
 
     export interface NotificationsUserRequest {
         user: number;
@@ -2993,16 +3075,11 @@ declare namespace EscolaLms.Notifications.Http.Requests {
         date_to?: string;
     }
 
-    export interface NotificationsRequest {
-        event?: string | null;
-        include_read?: boolean;
-        date_from?: string;
-        date_to?: string;
-    }
-
 }
 
 declare namespace EscolaLms.Pages.Http.Requests {
+    export interface PageListingRequest {}
+
     export interface PageUpdateRequest {
         id: number;
         slug?: string;
@@ -3010,11 +3087,15 @@ declare namespace EscolaLms.Pages.Http.Requests {
         content?: string;
     }
 
+    export interface PageFrontReadRequest {
+        slug: string;
+    }
+
     export interface PageDeleteRequest {
         id: number;
     }
 
-    export interface PageListingRequest {}
+    export interface PageFrontListingRequest {}
 
     export interface PageCreateRequest {
         slug: string;
@@ -3022,15 +3103,9 @@ declare namespace EscolaLms.Pages.Http.Requests {
         content: string;
     }
 
-    export interface PageFrontReadRequest {
-        slug: string;
-    }
-
     export interface PageReadRequest {
         id: number;
     }
-
-    export interface PageFrontListingRequest {}
 
 }
 
@@ -3076,11 +3151,11 @@ declare namespace EscolaLms.Permissions.Http.Requests {
         name: string;
     }
 
+    export interface RoleDeleteRequest {}
+
     export interface RoleUpdateRequest {
         permissions: Array<string>;
     }
-
-    export interface RoleDeleteRequest {}
 
     export interface RoleListingRequest {}
 
@@ -3089,18 +3164,6 @@ declare namespace EscolaLms.Permissions.Http.Requests {
 }
 
 declare namespace EscolaLms.Questionnaire.Http.Requests {
-    export interface QuestionUpdateRequest {
-        id: number;
-        title?: string;
-        description?: string;
-        questionnaire_id: number;
-        position?: number;
-        active?: boolean;
-        type?: string;
-    }
-
-    export interface QuestionListingRequest {}
-
     export interface QuestionnaireCreateRequest {
         title: string;
         active?: boolean;
@@ -3110,13 +3173,24 @@ declare namespace EscolaLms.Questionnaire.Http.Requests {
         }>;
     }
 
-    export interface QuestionDeleteRequest {
+    export interface QuestionnaireAssignUnassignRequest {
+        id: number;
+        model_type_title?: string;
+        model_id?: number;
+    }
+
+    export interface QuestionnaireFrontReadRequest {
+        id: number;
+        model_type_title?: string;
+        model_id?: number;
+    }
+
+    export interface QuestionReadRequest {
         id: number;
     }
 
-    export interface QuestionnaireFrontListingRequest {
-        model_type_title?: string;
-        model_id?: number;
+    export interface QuestionDeleteRequest {
+        id: number;
     }
 
     export interface QuestionnaireStarsFrontRequest {
@@ -3124,13 +3198,16 @@ declare namespace EscolaLms.Questionnaire.Http.Requests {
         model_id?: number;
     }
 
-    export interface QuestionAnswerListingRequest {
-        questionnaire_id: number;
-        question_id?: number | null;
-        questionnaire_model_id?: number | null;
+    export interface QuestionnaireFrontListingRequest {
+        model_type_title?: string;
+        model_id?: number;
     }
 
-    export interface QuestionnaireReadRequest {
+    export interface QuestionnaireListingRequest {}
+
+    export interface QuestionListingRequest {}
+
+    export interface QuestionnaireDeleteRequest {
         id: number;
     }
 
@@ -3143,37 +3220,6 @@ declare namespace EscolaLms.Questionnaire.Http.Requests {
         note?: string | null;
     }
 
-    export interface QuestionCreateRequest {
-        title: string;
-        description: string;
-        questionnaire_id: number;
-        position?: number;
-        active?: boolean;
-        type?: string;
-    }
-
-    export interface QuestionReadRequest {
-        id: number;
-    }
-
-    export interface QuestionnaireFrontReadRequest {
-        id: number;
-        model_type_title?: string;
-        model_id?: number;
-    }
-
-    export interface QuestionnaireListingRequest {}
-
-    export interface QuestionnaireDeleteRequest {
-        id: number;
-    }
-
-    export interface QuestionnaireAssignUnassignRequest {
-        id: number;
-        model_type_title?: string;
-        model_id?: number;
-    }
-
     export interface QuestionnaireUpdateRequest {
         id: number;
         title?: string;
@@ -3184,17 +3230,61 @@ declare namespace EscolaLms.Questionnaire.Http.Requests {
         }>;
     }
 
+    export interface QuestionnaireReadRequest {
+        id: number;
+    }
+
+    export interface QuestionCreateRequest {
+        title: string;
+        description: string;
+        questionnaire_id: number;
+        position?: number;
+        active?: boolean;
+        type?: string;
+    }
+
+    export interface QuestionAnswerListingRequest {
+        questionnaire_id: number;
+        question_id?: number | null;
+        questionnaire_model_id?: number | null;
+    }
+
     export interface QuestionnaireReportRequest {
         id: number;
         model_type_id?: number | null;
         model_id?: number | null;
     }
 
+    export interface QuestionUpdateRequest {
+        id: number;
+        title?: string;
+        description?: string;
+        questionnaire_id: number;
+        position?: number;
+        active?: boolean;
+        type?: string;
+    }
+
 }
 
 declare namespace EscolaLms.Reports.Http.Requests.Admin {
+    export interface ReportRequest {
+        limit?: number;
+        date?: string;
+    }
+
     export interface CourseStatsRequest {
         course_id: number;
+        stats?: Array<string>;
+    }
+
+    export interface CartStatsRequest {
+        stats?: Array<string>;
+    }
+
+    export interface DateRangeStatsRequest {
+        date_from?: string | null;
+        date_to?: string | null;
         stats?: Array<string>;
     }
 
@@ -3208,18 +3298,19 @@ declare namespace EscolaLms.Reports.Http.Requests.Admin {
         stats?: Array<string>;
     }
 
-    export interface ReportRequest {
-        limit?: number;
-        date?: string;
+    export interface CartStatsRequest {
+        stats?: Array<string>;
+    }
+
+    export interface DateRangeStatsRequest {
+        date_from?: string | null;
+        date_to?: string | null;
+        stats?: Array<string>;
     }
 
 }
 
 declare namespace EscolaLms.Scorm.Http.Requests {
-    export interface GetScormTrackRequest {}
-
-    export interface ScormListRequest {}
-
     export interface ScormCreateRequest {
         zip: Blob | File;
     }
@@ -3227,6 +3318,10 @@ declare namespace EscolaLms.Scorm.Http.Requests {
     export interface SetScormTrackRequest {}
 
     export interface ScormDeleteRequest {}
+
+    export interface ScormListRequest {}
+
+    export interface GetScormTrackRequest {}
 
 }
 
@@ -3247,12 +3342,6 @@ declare namespace EscolaLms.Settings.Http.Requests.Admin {
         }>;
     }
 
-    export interface SettingsListRequest {}
-
-    export interface SettingsReadRequest {}
-
-    export interface ConfigListRequest {}
-
     export interface SettingsDeleteRequest {}
 
     export interface SettingsUpdateRequest {
@@ -3264,31 +3353,26 @@ declare namespace EscolaLms.Settings.Http.Requests.Admin {
         value?: string;
     }
 
+    export interface ConfigListRequest {}
+
+    export interface SettingsReadRequest {}
+
+    export interface SettingsListRequest {}
+
 }
 
 declare namespace EscolaLms.StationaryEvents.Http.Requests {
-    export interface UpdateStationaryEventRequest {
-        name?: string | null;
-        status?: string;
-        description?: string | null;
-        short_desc?: string | null;
-        started_at?: string | null;
-        finished_at?: string | null;
-        base_price?: number | null;
-        max_participants?: number | null;
-        place?: string | null;
-        program?: string | null;
-        image?: any;
-        image_path?: string | null;
-        authors?: Array<number> | null;
-        categories?: Array<number>;
+    export interface ListStationaryEventForCurrentUserRequest {
+        name?: string;
     }
+
+    export interface ReadStationaryEventPublicRequest {}
 
     export interface ReadStationaryEventRequest {}
 
-    export interface DeleteStationaryEventRequest {}
-
     export interface ListStationaryEventRequest {}
+
+    export interface DeleteStationaryEventRequest {}
 
     export interface CreateStationaryEventRequest {
         name: string;
@@ -3302,42 +3386,71 @@ declare namespace EscolaLms.StationaryEvents.Http.Requests {
         place?: string | null;
         program?: string | null;
         image?: Blob | File | null;
+        agenda?: string | null;
         authors?: Array<number> | null;
         categories?: Array<number>;
     }
 
-    export interface ReadStationaryEventPublicRequest {}
-
-    export interface ListStationaryEventForCurrentUserRequest {
-        name?: string;
+    export interface UpdateStationaryEventRequest {
+        name?: string | null;
+        status?: string;
+        description?: string | null;
+        short_desc?: string | null;
+        started_at?: string | null;
+        finished_at?: string | null;
+        base_price?: number | null;
+        max_participants?: number | null;
+        place?: string | null;
+        program?: string | null;
+        image?: any;
+        image_path?: string | null;
+        agenda?: string | null;
+        authors?: Array<number> | null;
+        categories?: Array<number>;
     }
 
 }
 
 declare namespace EscolaLms.Tags.Http.Request {
-    export interface TagRemoveRequest {
-        tags: any;
-    }
-
     export interface TagInsertRequest {
         model_type: string;
         model_id: number;
         tags: any;
     }
 
+    export interface TagRemoveRequest {
+        tags: any;
+    }
+
 }
 
 declare namespace EscolaLms.Templates.Http.Requests {
+    export interface TemplateAssignedRequest {
+        assignable_class: string;
+    }
+
+    export interface EventTriggerRequest {
+        users: Array<number>;
+    }
+
     export interface TemplateListingRequest {
         event?: string;
         channel?: string;
         per_page?: number | null;
     }
 
+    export interface TemplateDeleteRequest {}
+
     export interface TemplateReadRequest {}
 
-    export interface TemplateAssignedRequest {
-        assignable_class: string;
+    export interface TemplateCreateRequest {
+        name: string;
+        channel: string;
+        event: string;
+        sections: Array<{
+            key?: string;
+            content?: string;
+        }>;
     }
 
     export interface TemplateUpdateRequest {
@@ -3350,21 +3463,7 @@ declare namespace EscolaLms.Templates.Http.Requests {
         }>;
     }
 
-    export interface TemplateDeleteRequest {}
-
-    export interface TemplateCreateRequest {
-        name: string;
-        channel: string;
-        event: string;
-        sections: Array<{
-            key?: string;
-            content?: string;
-        }>;
-    }
-
-    export interface EventTriggerRequest {
-        users: Array<number>;
-    }
+    export interface TemplateAssignRequest {}
 
     export interface TemplateListAssignableRequest {
         assignable_class?: string;
@@ -3372,29 +3471,21 @@ declare namespace EscolaLms.Templates.Http.Requests {
         channel?: string;
     }
 
-    export interface TemplateAssignRequest {}
-
 }
 
 declare namespace EscolaLms.TemplatesPdf.Http.Requests {
     export interface PdfReadRequest {}
-
-    export interface PdfListingRequest {}
 
     export interface PdfListingAdminRequest {
         user_id?: number;
         template_id?: number;
     }
 
+    export interface PdfListingRequest {}
+
 }
 
 declare namespace EscolaLms.Vouchers.Http.Requests {
-    export interface ApplyCouponRequest {
-        code?: string;
-    }
-
-    export interface ReadCouponRequest {}
-
     export interface CreateCouponRequest {
         name?: string | null;
         code: string;
@@ -3433,7 +3524,15 @@ declare namespace EscolaLms.Vouchers.Http.Requests {
         excluded_categories?: Array<number>;
     }
 
+    export interface ReadCouponRequest {}
+
     export interface DeleteCouponRequest {}
+
+    export interface UnapplyCouponRequest {}
+
+    export interface ApplyCouponRequest {
+        code?: string;
+    }
 
     export interface ListCouponsRequest {
         name?: string;
@@ -3446,22 +3545,31 @@ declare namespace EscolaLms.Vouchers.Http.Requests {
 }
 
 declare namespace EscolaLms.Translations.Http.Requests {
-    export interface UpdateLanguageLineRequest {
-        group?: string;
-        key?: string;
-        text?: Array<string>;
-    }
+    export interface ListLanguageLineRequest {}
 
     export interface ReadLanguageLineRequest {}
 
-    export interface ListLanguageLineRequest {}
+    export interface PublicListLanguageLineRequest {}
 
-    export interface DeleteLanguageLineRequest {}
+    export interface UpdateLanguageLineRequest {
+        group?: string;
+        key?: string;
+        public?: boolean;
+        text?: Array<string>;
+    }
+
+    export interface RetrieveTranslationRequest {
+        key: string;
+        replace?: any;
+    }
 
     export interface CreateLanguageLineRequest {
         group: string;
         key: string;
+        public?: boolean;
         text: Array<string>;
     }
+
+    export interface DeleteLanguageLineRequest {}
 
 }
