@@ -1,12 +1,14 @@
 <?php
 
-use Based\TypeScript\Generators\ModelGenerator;
+use Based\TypeScript\Generators\ModelGenerator as BaseModelGenerator;
 use Based\TypeScript\Generators\RequestGenerator as BaseRequestGenerator;
+
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 use App\TypeScript\RequestGenerator;
+use App\TypeScript\ModelGenerator;
 
 return [
     'generators' => [
@@ -137,7 +139,7 @@ return [
         'EscolaLms\\Templates\\Http\\Requests\\' => "vendor/escolalms/templates/src/Http/Requests/",
 
         'EscolaLms\\TemplatesPdf\\Http\\Requests\\' =>  "vendor/escolalms/templates-pdf/src/Http/Requests",
-        
+
         'EscolaLms\\Vouchers\\Http\\Requests\\' =>  "vendor/escolalms/vouchers/src/Http/Requests",
 
         'EscolaLms\\Translations\\Http\\Requests\\' =>  "vendor/escolalms/translations/src/Http/Requests",

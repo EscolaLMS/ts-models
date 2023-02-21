@@ -68,7 +68,7 @@
     "spatie/laravel-permission": "^3.18"
   },
   "require-dev": {
-    "based/laravel-typescript": "^0.0.2",
+    "based/laravel-typescript": "dev-master",
     "facade/ignition": "^2.0",
     "fakerphp/faker": "^1.9.1",
     "filp/whoops": "^2.0",
