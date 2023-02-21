@@ -1058,6 +1058,68 @@ declare namespace EscolaLms.Courses.Tests.Models {
 
 }
 
+declare namespace EscolaLms.CourseAccess.Models {
+    export interface CourseAccessEnquiry {
+        id: number;
+        course_id: number;
+        user_id: number;
+        status: string;
+        data: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        course?: EscolaLms.CourseAccess.Models.Course | null;
+        user?: EscolaLms.Core.Models.User | null;
+    }
+
+    export interface Course {
+        id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        title: string;
+        summary: string | null;
+        image_path: string | null;
+        video_path: string | null;
+        duration: string | null;
+        subtitle: string | null;
+        language: string | null;
+        description: string | null;
+        level: string | null;
+        poster_path: string | null;
+        active_from: string | null;
+        active_to: string | null;
+        hours_to_complete: number | null;
+        findable: boolean;
+        scorm_sco_id: number | null;
+        target_group: string | null;
+        status: string;
+        teaser_url: string | null;
+        public: boolean;
+        authors?: Array<EscolaLms.Courses.Models.User> | null;
+        lessons?: Array<EscolaLms.Courses.Models.Lesson> | null;
+        categories?: Array<EscolaLms.Categories.Models.Category> | null;
+        tags?: Array<EscolaLms.Tags.Models.Tag> | null;
+        users?: Array<EscolaLms.Courses.Models.User> | null;
+        groups?: Array<EscolaLms.Courses.Models.Group> | null;
+        topics?: Array<EscolaLms.Courses.Models.Topic> | null;
+        scorm_sco?: Peopleaps.Scorm.Model.ScormScoModel | null;
+        authors_count?: number | null;
+        lessons_count?: number | null;
+        categories_count?: number | null;
+        tags_count?: number | null;
+        users_count?: number | null;
+        groups_count?: number | null;
+        topics_count?: number | null;
+        readonly author?: any | null;
+        readonly author_id?: number | null;
+        readonly image_url?: string | null;
+        readonly video_url?: string | null;
+        readonly poster_url?: string | null;
+        readonly is_published?: boolean;
+        readonly is_active?: boolean;
+    }
+
+}
+
 declare namespace EscolaLms.CoursesImportExport.Models {
     export interface Course {
         id: number;
@@ -1584,6 +1646,82 @@ declare namespace EscolaLms.Tags.Models {
         created_at: string | null;
         updated_at: string | null;
         morphable?: any | null;
+    }
+
+}
+
+declare namespace EscolaLms.Tasks.Models {
+    export interface TaskNote {
+        id: number;
+        task_id: number;
+        user_id: number;
+        note: string;
+        created_at: string | null;
+        updated_at: string | null;
+        user?: EscolaLms.Tasks.Models.User | null;
+        task?: EscolaLms.Tasks.Models.Task | null;
+    }
+
+    export interface Task {
+        id: number;
+        title: string;
+        due_date: string | null;
+        completed_at: string | null;
+        user_id: number;
+        created_by_id: number;
+        related_type: string;
+        related_id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        user?: EscolaLms.Tasks.Models.User | null;
+        created_by?: EscolaLms.Tasks.Models.User | null;
+        related?: any | null;
+        task_notes?: Array<EscolaLms.Tasks.Models.TaskNote> | null;
+        task_notes_count?: number | null;
+    }
+
+    export interface User {
+        id: number;
+        first_name: string;
+        last_name: string;
+        email: string | null;
+        phone: string | null;
+        password: string | null;
+        is_active: boolean;
+        remember_token: string | null;
+        password_reset_token: string | null;
+        email_verified_at: string | null;
+        path_avatar: string | null;
+        gender: number | null;
+        age: number | null;
+        country: string | null;
+        city: string | null;
+        street: string | null;
+        postcode: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        points: number;
+        notification_channels: string | null;
+        access_to_directories: string | null;
+        current_timezone: string | null;
+        deleted_at: string | null;
+        notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        read_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        unread_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        roles?: Array<Spatie.Permission.Models.Role> | null;
+        permissions?: Array<Spatie.Permission.Models.Permission> | null;
+        clients?: Array<Laravel.Passport.Client> | null;
+        tokens?: Array<Laravel.Passport.Token> | null;
+        notifications_count?: number | null;
+        read_notifications_count?: number | null;
+        unread_notifications_count?: number | null;
+        roles_count?: number | null;
+        permissions_count?: number | null;
+        clients_count?: number | null;
+        tokens_count?: number | null;
+        readonly name?: any;
+        readonly email_verified?: boolean;
+        readonly avatar_url?: string | null;
     }
 
 }
@@ -2942,6 +3080,44 @@ declare namespace EscolaLms.Courses.Http.Requests {
 
 }
 
+declare namespace EscolaLms.CourseAccess.Http.Requests {
+    export interface DeleteCourseAccessEnquiryRequest {}
+
+    export interface ListCourseAccessEnquiryRequest {}
+
+    export interface CreateCourseAccessEnquiryApiRequest {
+        course_id: number;
+        data?: string;
+    }
+
+}
+
+declare namespace EscolaLms.CourseAccess.Http.Requests.Admin {
+    export interface AdminDeleteCourseAccessEnquiryRequest {}
+
+    export interface RemoveAccessAPIRequest {
+        groups?: Array<number>;
+        users?: Array<number>;
+    }
+
+    export interface AdminListCourseAccessEnquiryRequest {}
+
+    export interface AddAccessAPIRequest {
+        groups?: Array<number>;
+        users?: Array<number>;
+    }
+
+    export interface AdminApproveCourseAccessEnquiry {}
+
+    export interface ListAccessAPIRequest {}
+
+    export interface SetAccessAPIRequest {
+        groups?: Array<number>;
+        users?: Array<number>;
+    }
+
+}
+
 declare namespace EscolaLms.CoursesImportExport.Http.Requests {
     export interface CloneCourseAPIRequest {}
 
@@ -3420,6 +3596,78 @@ declare namespace EscolaLms.Tags.Http.Request {
 
     export interface TagRemoveRequest {
         tags: any;
+    }
+
+}
+
+declare namespace EscolaLms.Tasks.Http.Requests {
+    export interface IncompleteTaskRequest {}
+
+    export interface CompleteTaskRequest {}
+
+    export interface ListTaskRequest {}
+
+    export interface TaskRequest {}
+
+    export interface UpdateTaskRequest {
+        title: string;
+        related_type?: string;
+        related_id?: number;
+        due_date?: string;
+    }
+
+    export interface DeleteTaskRequest {}
+
+    export interface UpdateTaskNoteRequest {
+        task_id: number;
+        note: string;
+    }
+
+    export interface TaskNoteRequest {}
+
+    export interface DetailsTaskRequest {}
+
+    export interface DeleteTaskNoteRequest {}
+
+    export interface CreateTaskRequest {
+        title: string;
+        related_type?: string;
+        related_id?: number;
+        due_date?: string;
+    }
+
+    export interface CreateTaskNoteRequest {
+        task_id: number;
+        note: string;
+    }
+
+}
+
+declare namespace EscolaLms.Tasks.Http.Requests.Admin {
+    export interface AdminIncompleteTaskRequest {}
+
+    export interface AdminCompleteTaskRequest {}
+
+    export interface AdminDetailsTaskRequest {}
+
+    export interface AdminUpdateTaskRequest {
+        title: string;
+        related_type?: string;
+        related_id?: number;
+        user_id: number;
+        due_date?: string;
+    }
+
+    export interface AdminDeleteTaskRequest {}
+
+    export interface AdminListTaskRequest {}
+
+    export interface AdminCreateTaskRequest {
+        title: string;
+        related_type?: string;
+        related_id?: number;
+        user_id: number;
+        due_date?: string;
     }
 
 }
