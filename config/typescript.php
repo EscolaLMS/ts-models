@@ -39,6 +39,8 @@ return [
         'EscolaLms\\Courses\\Models\\' => "vendor/escolalms/courses/src/Models/",
         'EscolaLms\\Courses\\Tests\\Models\\' => "vendor/escolalms/courses/tests/Models/",
 
+        'EscolaLms\\CourseAccess\\Models\\' => "vendor/escolalms/course-access/src/Models/",
+
         'EscolaLms\\CoursesImportExport\\Models\\' => "vendor/escolalms/courses-import-export/src/Models/",
 
         'EscolaLms\\CsvUsers\\Models\\' => "vendor/escolalms/csv-users/src/Models/",
@@ -67,6 +69,7 @@ return [
         'EscolaLms\\Settings\\Models\\' => "vendor/escolalms/settings/src/Models/",
         'EscolaLms\\StationaryEvents\\Models\\' => "vendor/escolalms/stationary-events/src/Models/",
         'EscolaLms\\Tags\\Models\\' => "vendor/escolalms/tags/src/Models/",
+        'EscolaLms\\Tasks\\Models\\' => "vendor/escolalms/tasks/src/Models/",
         'EscolaLms\\Templates\\Models\\' => "vendor/escolalms/templates/src/Models/",
         //'EscolaLms\\TemplatesEmail\\Models\\' => "vendor/escolalms/templates-email/src/Models/",
         'EscolaLms\\TemplatesPdf\\Models\\' => "vendor/escolalms/templates-pdf/src/Models/",
@@ -94,6 +97,8 @@ return [
         'EscolaLms\\Consultations\\Http\\Requests\\' => "vendor/escolalms/consultations/src/Http/Requests/",
 
         'EscolaLms\\Courses\\Http\\Requests\\' => "vendor/escolalms/courses/src/Http/Requests/", // waiting for custom role in https://github.com/EscolaLMS/Courses/blob/main/src/Http/Requests/UploadTopicResourceAPIRequest.php
+
+        'EscolaLms\\CourseAccess\\Http\\Requests\\' => "vendor/escolalms/course-access/src/Http/Requests/",
 
         'EscolaLms\\CoursesImportExport\\Http\\Requests\\' => "vendor/escolalms/courses-import-export/src/Http/Requests/",
 
@@ -126,6 +131,8 @@ return [
         'EscolaLms\\StationaryEvents\\Http\\Requests\\' => "vendor/escolalms/stationary-events/src/Http/Requests/",
 
         'EscolaLms\\Tags\\Http\\Request\\' => "vendor/escolalms/tags/src/Http/Request/",
+
+        'EscolaLms\\Tasks\\Http\\Request\\' => "vendor/escolalms/tasks/src/Http/Request/",
 
         'EscolaLms\\Templates\\Http\\Requests\\' => "vendor/escolalms/templates/src/Http/Requests/",
 
