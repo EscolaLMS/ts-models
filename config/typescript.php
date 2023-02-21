@@ -130,9 +130,9 @@ return [
 
         'EscolaLms\\StationaryEvents\\Http\\Requests\\' => "vendor/escolalms/stationary-events/src/Http/Requests/",
 
-        'EscolaLms\\Tags\\Http\\Requests\\' => "vendor/escolalms/tags/src/Http/Requests/",
+        'EscolaLms\\Tags\\Http\\Request\\' => "vendor/escolalms/tags/src/Http/Request/",
 
-        'EscolaLms\\Tasks\\Http\\Request\\' => "vendor/escolalms/tasks/src/Http/Request/",
+        'EscolaLms\\Tasks\\Http\\Requests\\' => "vendor/escolalms/tasks/src/Http/Requests/",
 
         'EscolaLms\\Templates\\Http\\Requests\\' => "vendor/escolalms/templates/src/Http/Requests/",
 
