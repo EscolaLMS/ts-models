@@ -58,6 +58,7 @@
     "escolalms/questionnaire": "^0",
     "escolalms/webinar": "^0",
     "escolalms/consultations": "^0",
+    "escolalms/consultation-access": "^0",
     "escolalms/assign-without-account": "^0",
     "escolalms/video": "^0",
     "escolalms/vouchers": "^0",
