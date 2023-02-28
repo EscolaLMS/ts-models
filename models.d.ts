@@ -716,6 +716,58 @@ declare namespace EscolaLms.Consultations.Models {
 
 }
 
+declare namespace EscolaLms.ConsultationAccess.Models {
+    export interface Consultation {
+        id: number;
+        author_id: number | null;
+        name: string;
+        status: string;
+        description: string;
+        active_from: string | null;
+        active_to: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        duration: string | null;
+        image_path: string | null;
+        short_desc: string | null;
+        logotype_path: string | null;
+        author?: EscolaLms.Consultations.Models.User | null;
+        users?: Array<EscolaLms.Consultations.Models.User> | null;
+        proposed_terms?: Array<EscolaLms.Consultations.Models.ConsultationProposedTerm> | null;
+        categories?: Array<EscolaLms.Categories.Models.Category> | null;
+        terms?: Array<EscolaLms.Consultations.Models.ConsultationUserPivot> | null;
+        users_count?: number | null;
+        proposed_terms_count?: number | null;
+        categories_count?: number | null;
+        terms_count?: number | null;
+        readonly image_url?: string;
+        readonly logotype_url?: string;
+    }
+
+    export interface ConsultationAccessEnquiryProposedTerm {
+        id: number;
+        consultation_access_enquiry_id: number;
+        proposed_at: string;
+        created_at: string | null;
+        updated_at: string | null;
+        consultation_access_enquiry?: EscolaLms.ConsultationAccess.Models.ConsultationAccessEnquiry | null;
+    }
+
+    export interface ConsultationAccessEnquiry {
+        id: number;
+        consultation_id: number;
+        user_id: number;
+        status: string;
+        created_at: string | null;
+        updated_at: string | null;
+        consultation?: EscolaLms.ConsultationAccess.Models.Consultation | null;
+        user?: EscolaLms.Auth.Models.User | null;
+        consultation_access_enquiry_proposed_terms?: Array<EscolaLms.ConsultationAccess.Models.ConsultationAccessEnquiryProposedTerm> | null;
+        consultation_access_enquiry_proposed_terms_count?: number | null;
+    }
+
+}
+
 declare namespace EscolaLms.Core.Models {
     export interface User {
         id: number;
@@ -826,9 +878,9 @@ declare namespace EscolaLms.Courses.Models {
         course?: EscolaLms.Courses.Models.Course | null;
         topics?: Array<EscolaLms.Courses.Models.Topic> | null;
         parent_lesson?: EscolaLms.Courses.Models.Lesson | null;
-        children_lessons?: Array<EscolaLms.Courses.Models.Lesson> | null;
+        lessons?: Array<EscolaLms.Courses.Models.Lesson> | null;
         topics_count?: number | null;
-        children_lessons_count?: number | null;
+        lessons_count?: number | null;
     }
 
     export interface CourseUserPivot {
@@ -1669,10 +1721,11 @@ declare namespace EscolaLms.Tasks.Models {
         completed_at: string | null;
         user_id: number;
         created_by_id: number;
-        related_type: string;
-        related_id: number;
+        related_type: string | null;
+        related_id: number | null;
         created_at: string | null;
         updated_at: string | null;
+        description: string | null;
         user?: EscolaLms.Tasks.Models.User | null;
         created_by?: EscolaLms.Tasks.Models.User | null;
         related?: any | null;
@@ -2936,6 +2989,29 @@ declare namespace EscolaLms.Consultations.Http.Requests {
 
 }
 
+declare namespace EscolaLms.ConsultationAccess.Http.Requests {
+    export interface CreateConsultationAccessEnquiryRequest {
+        consultation_id: number;
+        proposed_terms: Array<string>;
+    }
+
+    export interface ListConsultationAccessEnquiryRequest {}
+
+}
+
+declare namespace EscolaLms.ConsultationAccess.Http.Requests.Admin {
+    export interface AdminApproveConsultationAccessEnquiryRequest {
+        proposed_term_id: number;
+    }
+
+    export interface AdminDisapproveConsultationAccessEnquiryRequest {
+        message?: string | null;
+    }
+
+    export interface AdminListConsultationAccessEnquiryRequest {}
+
+}
+
 declare namespace EscolaLms.Courses.Http.Requests {
     export interface DeleteTopicAPIRequest {}
 
@@ -3611,8 +3687,9 @@ declare namespace EscolaLms.Tasks.Http.Requests {
 
     export interface UpdateTaskRequest {
         title: string;
-        related_type?: string;
-        related_id?: number;
+        description?: string | null;
+        related_type?: string | null;
+        related_id?: number | null;
         due_date?: string;
     }
 
@@ -3631,8 +3708,9 @@ declare namespace EscolaLms.Tasks.Http.Requests {
 
     export interface CreateTaskRequest {
         title: string;
-        related_type?: string;
-        related_id?: number;
+        description?: string | null;
+        related_type?: string | null;
+        related_id?: number | null;
         due_date?: string;
     }
 
@@ -3652,8 +3730,8 @@ declare namespace EscolaLms.Tasks.Http.Requests.Admin {
 
     export interface AdminUpdateTaskRequest {
         title: string;
-        related_type?: string;
-        related_id?: number;
+        related_type?: string | null;
+        related_id?: number | null;
         user_id: number;
         due_date?: string;
     }
@@ -3664,8 +3742,9 @@ declare namespace EscolaLms.Tasks.Http.Requests.Admin {
 
     export interface AdminCreateTaskRequest {
         title: string;
-        related_type?: string;
-        related_id?: number;
+        description?: string | null;
+        related_type?: string | null;
+        related_id?: number | null;
         user_id: number;
         due_date?: string;
     }
