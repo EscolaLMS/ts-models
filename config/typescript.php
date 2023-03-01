@@ -36,6 +36,8 @@ return [
 
         'EscolaLms\\Consultations\\Models\\' => "vendor/escolalms/consultations/src/Models/",
 
+        'EscolaLms\\ConsultationAccess\\Models\\' => "vendor/escolalms/consultation-access/src/Models/",
+
         'EscolaLms\\Core\\Models\\' => "vendor/escolalms/core/src/Models/",
 
         'EscolaLms\\Courses\\Models\\' => "vendor/escolalms/courses/src/Models/",
@@ -97,6 +99,8 @@ return [
         'EscolaLms\\Webinar\\Http\\Requests\\' => "vendor/escolalms/webinar/src/Http/Requests/",
 
         'EscolaLms\\Consultations\\Http\\Requests\\' => "vendor/escolalms/consultations/src/Http/Requests/",
+
+        'EscolaLms\\ConsultationAccess\\Http\\Requests\\' => "vendor/escolalms/consultation-access/src/Http/Requests/",
 
         'EscolaLms\\Courses\\Http\\Requests\\' => "vendor/escolalms/courses/src/Http/Requests/", // waiting for custom role in https://github.com/EscolaLMS/Courses/blob/main/src/Http/Requests/UploadTopicResourceAPIRequest.php
 
