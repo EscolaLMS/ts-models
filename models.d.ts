@@ -1928,6 +1928,28 @@ declare namespace EscolaLms.TopicTypes.Models.TopicContent {
 
 }
 
+declare namespace EscolaLms.TopicTypeProject.Models {
+    export interface ProjectSolution {
+        id: number;
+        topic_id: number;
+        user_id: number;
+        path: string;
+        created_at: string | null;
+        updated_at: string | null;
+        topic?: EscolaLms.Courses.Models.Topic | null;
+        user?: EscolaLms.Auth.Models.User | null;
+    }
+
+    export interface Project {
+        id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        value: string;
+        topic?: EscolaLms.Courses.Models.Topic | null;
+    }
+
+}
+
 declare namespace EscolaLms.Questionnaire.Models {
     export interface Question {
         id: number;
@@ -3683,8 +3705,6 @@ declare namespace EscolaLms.Tasks.Http.Requests {
 
     export interface ListTaskRequest {}
 
-    export interface TaskRequest {}
-
     export interface UpdateTaskRequest {
         title: string;
         description?: string | null;
@@ -3699,8 +3719,6 @@ declare namespace EscolaLms.Tasks.Http.Requests {
         task_id: number;
         note: string;
     }
-
-    export interface TaskNoteRequest {}
 
     export interface DetailsTaskRequest {}
 
@@ -3726,7 +3744,14 @@ declare namespace EscolaLms.Tasks.Http.Requests.Admin {
 
     export interface AdminCompleteTaskRequest {}
 
+    export interface AdminCreateTaskNoteRequest {
+        task_id: number;
+        note: string;
+    }
+
     export interface AdminDetailsTaskRequest {}
+
+    export interface AdminDeleteTaskNoteRequest {}
 
     export interface AdminUpdateTaskRequest {
         title: string;
@@ -3739,6 +3764,11 @@ declare namespace EscolaLms.Tasks.Http.Requests.Admin {
     export interface AdminDeleteTaskRequest {}
 
     export interface AdminListTaskRequest {}
+
+    export interface AdminUpdateTaskNoteRequest {
+        task_id: number;
+        note: string;
+    }
 
     export interface AdminCreateTaskRequest {
         title: string;
@@ -3809,6 +3839,25 @@ declare namespace EscolaLms.TemplatesPdf.Http.Requests {
     }
 
     export interface PdfListingRequest {}
+
+}
+
+declare namespace EscolaLms.TopicTypeProject.Http.Requests {
+    export interface DeleteProjectSolutionRequest {}
+
+    export interface ListProjectSolutionRequest {}
+
+    export interface CreateProjectSolutionRequest {
+        topic_id: number;
+        file: Blob | File;
+    }
+
+}
+
+declare namespace EscolaLms.TopicTypeProject.Http.Requests.Admin {
+    export interface AdminListProjectSolutionRequest {}
+
+    export interface AdminDeleteProjectSolutionRequest {}
 
 }
 
