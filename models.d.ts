@@ -1970,6 +1970,8 @@ declare namespace EscolaLms.TopicTypeGift.Models {
         value: string;
         created_at: string | null;
         updated_at: string | null;
+        max_attempts: number | null;
+        max_execution_time: number | null;
         questions?: Array<EscolaLms.TopicTypeGift.Models.GiftQuestion> | null;
         topic?: EscolaLms.Courses.Models.Topic | null;
         questions_count?: number | null;
@@ -3932,13 +3934,22 @@ declare namespace EscolaLms.TopicTypeGift.Http.Requests.Admin {
         score: number;
     }
 
+    export interface AdminUpdateAttemptAnswerRequest {
+        score: number;
+        feedback?: string | null;
+    }
+
     export interface AdminCreateGiftQuestionRequest {
         topic_gift_quiz_id: number;
         value: string;
         score: number;
     }
 
+    export interface AdminListQuizAttemptRequest {}
+
     export interface AdminDeleteGiftQuestionRequest {}
+
+    export interface AdminReadQuizAttemptRequest {}
 
     export interface AdminGiftQuestionRequest {
         topic_gift_quiz_id: number;
