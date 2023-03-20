@@ -79,6 +79,7 @@ return [
         'EscolaLms\\TemplatesPdf\\Models\\' => "vendor/escolalms/templates-pdf/src/Models/",
         //'EscolaLms\\TemplatesSms\\Models\\' => "vendor/escolalms/templates-sms/src/Models/",
         'EscolaLms\\TopicTypes\\Models\\' => "vendor/escolalms/topic-types/src/Models/",
+        'EscolaLms\\TopicTypeGift\\Models\\' => "vendor/escolalms/topic-type-gift/src/Models/",
         'EscolaLms\\TopicTypeProject\\Models\\' => "vendor/escolalms/topic-type-project/src/Models/",
         'EscolaLms\\Questionnaire\\Models\\' => "vendor/escolalms/questionnaire/src/Models/",
         'EscolaLms\\Video\\Models\\' => "vendor/escolalms/video/src/Models/",
@@ -144,6 +145,8 @@ return [
         'EscolaLms\\Templates\\Http\\Requests\\' => "vendor/escolalms/templates/src/Http/Requests/",
 
         'EscolaLms\\TemplatesPdf\\Http\\Requests\\' =>  "vendor/escolalms/templates-pdf/src/Http/Requests",
+
+        'EscolaLms\\TopicTypeGift\\Http\\Requests\\' =>  "vendor/escolalms/topic-type-gift/src/Http/Requests",
 
         'EscolaLms\\TopicTypeProject\\Http\\Requests\\' =>  "vendor/escolalms/topic-type-project/src/Http/Requests",
 
