@@ -44,7 +44,7 @@ return [
         'EscolaLms\\Courses\\Tests\\Models\\' => "vendor/escolalms/courses/tests/Models/",
 
         'EscolaLms\\CourseAccess\\Models\\' => "vendor/escolalms/course-access/src/Models/",
-        'EscolaLms\\Bookmarks\\Models\\' => "vendor/escolalms/escolalms/bookmarks_notes/src/Models/",
+        'EscolaLms\\Bookmarks\\Models\\' => "vendor/escolalms/bookmarks_notes/src/Models/",
 
         'EscolaLms\\CoursesImportExport\\Models\\' => "vendor/escolalms/courses-import-export/src/Models/",
 
