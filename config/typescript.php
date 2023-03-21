@@ -44,6 +44,7 @@ return [
         'EscolaLms\\Courses\\Tests\\Models\\' => "vendor/escolalms/courses/tests/Models/",
 
         'EscolaLms\\CourseAccess\\Models\\' => "vendor/escolalms/course-access/src/Models/",
+        'EscolaLms\\Bookmarks\\Models\\' => "vendor/escolalms/escolalms/bookmarks_notes/src/Models/",
 
         'EscolaLms\\CoursesImportExport\\Models\\' => "vendor/escolalms/courses-import-export/src/Models/",
 
@@ -107,7 +108,9 @@ return [
         'EscolaLms\\Courses\\Http\\Requests\\' => "vendor/escolalms/courses/src/Http/Requests/", // waiting for custom role in https://github.com/EscolaLMS/Courses/blob/main/src/Http/Requests/UploadTopicResourceAPIRequest.php
 
         'EscolaLms\\CourseAccess\\Http\\Requests\\' => "vendor/escolalms/course-access/src/Http/Requests/",
-
+        
+        'EscolaLms\\Bookmarks\\Http\\Requests\\' => "vendor/escolalms/bookmarks_notes/src/Http/Requests/",
+        
         'EscolaLms\\CoursesImportExport\\Http\\Requests\\' => "vendor/escolalms/courses-import-export/src/Http/Requests/",
 
         'EscolaLms\\CsvUsers\\Http\\Requests\\' => "vendor/escolalms/csv-users/src/Http/Requests/",
