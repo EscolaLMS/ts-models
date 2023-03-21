@@ -1181,6 +1181,65 @@ declare namespace EscolaLms.CourseAccess.Models {
 
 }
 
+declare namespace EscolaLms.Bookmarks.Models {
+    export interface User {
+        id: number;
+        first_name: string;
+        last_name: string;
+        email: string | null;
+        phone: string | null;
+        password: string | null;
+        is_active: boolean;
+        remember_token: string | null;
+        password_reset_token: string | null;
+        email_verified_at: string | null;
+        path_avatar: string | null;
+        gender: number | null;
+        age: number | null;
+        country: string | null;
+        city: string | null;
+        street: string | null;
+        postcode: string | null;
+        created_at: string | null;
+        updated_at: string | null;
+        points: number;
+        notification_channels: string | null;
+        access_to_directories: string | null;
+        current_timezone: string | null;
+        deleted_at: string | null;
+        notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        read_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        unread_notifications?: Array<Illuminate.Notifications.DatabaseNotification> | null;
+        roles?: Array<Spatie.Permission.Models.Role> | null;
+        permissions?: Array<Spatie.Permission.Models.Permission> | null;
+        clients?: Array<Laravel.Passport.Client> | null;
+        tokens?: Array<Laravel.Passport.Token> | null;
+        notifications_count?: number | null;
+        read_notifications_count?: number | null;
+        unread_notifications_count?: number | null;
+        roles_count?: number | null;
+        permissions_count?: number | null;
+        clients_count?: number | null;
+        tokens_count?: number | null;
+        readonly name?: any;
+        readonly email_verified?: boolean;
+        readonly avatar_url?: string | null;
+    }
+
+    export interface Bookmark {
+        id: number;
+        value: string | null;
+        bookmarkable_type: string;
+        bookmarkable_id: number;
+        user_id: number;
+        created_at: string | null;
+        updated_at: string | null;
+        user?: EscolaLms.Bookmarks.Models.User | null;
+        bookmarkable?: any | null;
+    }
+
+}
+
 declare namespace EscolaLms.CoursesImportExport.Models {
     export interface Course {
         id: number;
@@ -3296,6 +3355,27 @@ declare namespace EscolaLms.CourseAccess.Http.Requests {
     export interface DeleteCourseAccessEnquiryRequest {}
 
     export interface ListCourseAccessEnquiryRequest {}
+
+}
+
+declare namespace EscolaLms.Bookmarks.Http.Requests {
+    export interface ListBookmarkRequest {}
+
+    export interface UpdateBookmarkRequest {
+        value?: string | null;
+        bookmarkable_id: number;
+        bookmarkable_type: string;
+    }
+
+    export interface DeleteBookmarkRequest {}
+
+    export interface AdminListBookmarkRequest {}
+
+    export interface CreateBookmarkRequest {
+        value?: string | null;
+        bookmarkable_id: number;
+        bookmarkable_type: string;
+    }
 
 }
 
