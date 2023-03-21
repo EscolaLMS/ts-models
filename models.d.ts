@@ -826,6 +826,7 @@ declare namespace EscolaLms.Courses.Models {
         can_skip: boolean;
         introduction: string | null;
         description: string | null;
+        duration: string | null;
         lesson?: EscolaLms.Courses.Models.Lesson | null;
         topicable?: any | null;
         progress?: Array<EscolaLms.Courses.Models.CourseProgress> | null;
@@ -3166,6 +3167,7 @@ declare namespace EscolaLms.Courses.Http.Requests {
         preview?: boolean;
         can_skip?: boolean;
         json?: string;
+        duration?: string | null;
     }
 
     export interface CloneTopicAPIRequest {}
@@ -3238,6 +3240,7 @@ declare namespace EscolaLms.Courses.Http.Requests {
         preview?: boolean;
         can_skip?: boolean;
         json?: string;
+        duration?: string | null;
     }
 
     export interface DeleteCourseAPIRequest {}
